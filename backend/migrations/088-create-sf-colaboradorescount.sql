@@ -1,0 +1,2 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (99, 'colaboradoresCount', 'Total de colaboradores para paginacao. Params: crId, busca.', 'SQL', 'SELECT COUNT(*) AS TOTAL FROM COLABORADOR c WHERE (''{{crId}}'' = '''' OR c.CR_ID = {{crId}})
+  AND (''{{busca}}'' = '''' OR c.NOME LIKE ''%{{busca}}%'' OR c.CARGO LIKE ''%{{busca}}%'')', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

@@ -1,0 +1,9 @@
+ID,NOME,SALARIO_MEDIO,ATIVO
+1,Analista Junior,3500,true
+2,Analista Pleno,5500,true
+3,Analista Senior,8000,true
+4,Coordenador,11000,true
+5,Gerente,15000,true
+6,Diretor,25000,true
+7,Estagiario,1800,true
+8,Assistente Administrativo,2800,true

@@ -1,0 +1,7 @@
+Exportacao leve do Planejamento Orcamentario, gerada em 2026-11-19T23:23:54.
+
+codigo/: codigo do app (frontend, backend, Server Functions).
+estrutura-banco/schema.sql: CREATE TABLE de todas as tabelas.
+dados/: uma planilha CSV por tabela.
+Tabelas so com a estrutura: DIM_1, DIM_5, EXPORT_CODIGO, EXPORT_DONOS, EXPORT_GIT, EXPORT_LEVE, EXPORT_PACOTE, ORCAMENTO.
+Tabelas internas da plataforma e de configuracao de envio nao entram. Textos com cara de chave ou token foram trocados por [REMOVIDO].

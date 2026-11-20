@@ -1,0 +1,2 @@
+-- tipo: SQL | Upsert de um valor de linha custom de formula (DRIVER_FORMULA_VALOR). Params: formulaId, cicloId, crId, mes, valor. Usada pelo preenchimento interno (evita 403 do CRUD REST para business).
+INSERT INTO DRIVER_FORMULA_VALOR (FORMULA_ID, CICLO_ID, CR_ID, MES, VALOR) VALUES ({{formulaId}}, {{cicloId}}, {{crId}}, {{mes}}, {{valor}}) ON DUPLICATE KEY UPDATE VALOR = {{valor}}

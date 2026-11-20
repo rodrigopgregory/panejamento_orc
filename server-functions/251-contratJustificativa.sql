@@ -1,0 +1,2 @@
+-- tipo: SQL | Grade de contratacoes: atualiza a justificativa de todas as contratacoes do cargo no ciclo/CR. Params: cicloId, crId, cargoId (numericos), justificativa (texto escapado)
+UPDATE CONTRATACAO_PROJETADA SET JUSTIFICATIVA = '{{justificativa}}' WHERE CICLO_ID = {{cicloId}} AND CR_ID = {{crId}} AND CARGO_ID = {{cargoId}}

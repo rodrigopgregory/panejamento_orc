@@ -1,0 +1,6 @@
+-- tipo: SQL | Contagem de status agregada (CRs + pacotes) do ciclo — param cicloId (int)
+SELECT STATUS, SUM(QTD) as QTD FROM (
+  SELECT STATUS, COUNT(*) as QTD FROM ORCAMENTO_STATUS WHERE CICLO_ID = {{cicloId}} GROUP BY STATUS
+  UNION ALL
+  SELECT STATUS, COUNT(*) as QTD FROM PACOTE_STATUS WHERE CICLO_ID = {{cicloId}} GROUP BY STATUS
+) t GROUP BY STATUS

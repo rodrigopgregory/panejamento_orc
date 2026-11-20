@@ -1,0 +1,3 @@
+-- tipo: SQL | Grava um evento na trilha de auditoria do workflow (usado pelo app para confirmar/desfazer modelo). Params: cicloId, tipo, crId, driverId, gestorId (0 = NULL), evento, statusDe, statusPara, comentario, autor, origem, agora
+INSERT INTO WORKFLOW_AUDITORIA (CICLO_ID, TIPO, CR_ID, DRIVER_ID, GESTOR_ID, EVENTO, STATUS_DE, STATUS_PARA, COMENTARIO, AUTOR, ORIGEM, CRIADO_EM)
+VALUES ({{cicloId}}, '{{tipo}}', NULLIF({{crId}}, 0), NULLIF({{driverId}}, 0), NULLIF({{gestorId}}, 0), '{{evento}}', '{{statusDe}}', '{{statusPara}}', '{{comentario}}', '{{autor}}', '{{origem}}', '{{agora}}')

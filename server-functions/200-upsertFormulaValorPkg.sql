@@ -1,0 +1,2 @@
+-- tipo: SQL | Upsert de valor de linha de MODELO DE PACOTE (DRIVER_FORMULA_VALOR com PACOTE_ID). Params: formulaId, cicloId, pacoteId, crId (0 = valor unico do pacote), mes, valor.
+INSERT INTO DRIVER_FORMULA_VALOR (FORMULA_ID, CICLO_ID, PACOTE_ID, CR_ID, MES, VALOR) VALUES ({{formulaId}}, {{cicloId}}, {{pacoteId}}, {{crId}}, {{mes}}, {{valor}}) ON DUPLICATE KEY UPDATE VALOR = {{valor}}

@@ -1,0 +1,2 @@
+-- tipo: SQL | Cria centro de resultado (params: codigo, nome, empresaId, ativo)
+INSERT INTO CENTRO_RESULTADO (CODIGO, NOME, EMPRESA_ID, ATIVO) VALUES ('{{codigo}}', '{{nome}}', {{empresaId}}, '{{ativo}}')

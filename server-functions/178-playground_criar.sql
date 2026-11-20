@@ -1,0 +1,2 @@
+-- tipo: SQL | Playground: cria estudo vazio — params usuario, agora.
+INSERT INTO PLAYGROUND (USUARIO, USUARIO_ID, NOME, HTML, TASK_ID, SHARE_TOKEN, CONVERSA, ATIVO, CRIADO_EM, ATUALIZADO_EM) VALUES ('{{usuario}}', :VAR_USER, 'Novo estudo', '', '', '', '', 'true', '{{agora}}', '{{agora}}')

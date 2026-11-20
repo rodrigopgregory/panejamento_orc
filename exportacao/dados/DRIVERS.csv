@@ -1,0 +1,6 @@
+ID,NOME,DESCRICAO,COR,ATIVO,CRIADO_EM,TIPO_DRIVER,ORIGEM,ORDEM,ESCOPO
+1,BASE_ZERO,"Orçamento construído do zero, sem base histórica",warning,true,2026-03-22T03:14:11,NORMAL,NATIVO,2,CR
+2,BASE_HISTORICO,Projeção baseada em dados históricos com variação percentual,info,true,2026-03-22T03:14:11,NORMAL,NATIVO,3,CR
+3,RECEITA,Contas vinculadas a receita e faturamento,success,true,2026-03-22T03:14:11,NORMAL,TELA,1,CR
+4,PESSOAL,"Contas de folha de pagamento, benefícios e encargos",danger,true,2026-03-22T03:14:11,NORMAL,NATIVO,4,CR
+24,CUSTOS_DE_SOFTWARE,Licencas e despesas de software lancadas pelo responsavel do pacote e distribuidas entre os setores pelo rateio de pessoas,info,true,2026-07-15T00:55:21,NORMAL,TELA,5,PACOTE

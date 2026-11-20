@@ -1,0 +1,1 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (183, 'playground_set_task', 'Playground: vincula a thread do agente ao estudo — params id, taskId.', 'SQL', 'UPDATE PLAYGROUND SET TASK_ID = ''{{taskId}}'' WHERE ID = {{id}}', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

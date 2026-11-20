@@ -1,0 +1,2 @@
+-- tipo: SQL | Contas contabeis basicas.
+SELECT ID, CODIGO, NOME, TIPO FROM CONTA_CONTABIL ORDER BY CODIGO

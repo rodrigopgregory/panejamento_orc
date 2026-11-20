@@ -1,0 +1,11 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (187, 'playground_salvar_html', 'Playground: salva o HTML do canvas versionando o anterior. Input { id, html }.', 'JAVASCRIPT', 'const { runDmlMitra, runQueryMitra } = require(''mitra-sdk'');
+const projectId = parseInt(process.env.MITRA_PROJECT_ID);
+const esc = (s) => String(s).replace(/\\\\/g, ''\\\\\\\\'').replace(/''/g, "''''");
+const agora = new Date().toISOString().slice(0, 19);
+const id = parseInt(event.id);
+if (!id) throw new Error(''id obrigatorio'');
+const html = String(event.html || '''');
+if (!html.trim()) throw new Error(''html vazio'');
+await runDmlMitra({ projectId, sql: "INSERT INTO PLAYGROUND_VERSAO (PLAYGROUND_ID, HTML, CRIADO_EM) SELECT ID, HTML, ''" + agora + "'' FROM PLAYGROUND WHERE ID = " + id + " AND HTML IS NOT NULL AND HTML <> ''''" });
+await runDmlMitra({ projectId, sql: "UPDATE PLAYGROUND SET HTML = ''" + esc(html) + "'', ATUALIZADO_EM = ''" + agora + "'' WHERE ID = " + id });
+return { ok: true, tamanho: html.length };', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

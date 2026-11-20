@@ -1,0 +1,1 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (44, 'cadastroAtualizarEmpresa', 'Atualiza empresa por ID', 'SQL', 'UPDATE EMPRESA SET NOME = ''{{nome}}'', CNPJ = ''{{cnpj}}'', ATIVO = ''{{ativo}}'' WHERE ID = {{id}}', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

@@ -1,0 +1,733 @@
+-- Estrutura do banco (gerada a partir do information_schema)
+
+CREATE TABLE `APP_CONFIG` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CHAVE` varchar(100),
+  `VALOR` varchar(200),
+  `ATUALIZADO_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `AUMENTO_SALARIAL` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `COLABORADOR_ID` int NOT NULL,
+  `PERCENTUAL` decimal(6,2) NOT NULL DEFAULT 0.00,
+  `MES_APLICACAO` int NOT NULL DEFAULT 1,
+  `MOTIVO` varchar(200),
+  `CRIADO_EM` varchar(19),
+  KEY `COLABORADOR_ID` (`COLABORADOR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `BENEFICIO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `TIPO` varchar(20) DEFAULT 'FIXO',
+  `VALOR` decimal(15,2) DEFAULT 0.00,
+  `PERCENTUAL` decimal(5,2) DEFAULT 0.00,
+  `APLICA_PJ` varchar(5) DEFAULT 'false',
+  `APLICA_CLT` varchar(5) DEFAULT 'true',
+  `CICLO_ID` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CARGO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(100),
+  `SALARIO_MEDIO` decimal(12,2),
+  `ATIVO` varchar(5) DEFAULT 'true',
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CENTRO_RESULTADO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CODIGO` varchar(20) NOT NULL,
+  `NOME` varchar(200) NOT NULL,
+  `EMPRESA_ID` int,
+  `ATIVO` varchar(5) DEFAULT 'true',
+  KEY `EMPRESA_ID` (`EMPRESA_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CICLO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `ANO` int NOT NULL,
+  `STATUS` varchar(20) DEFAULT 'ABERTO',
+  `CRIADO_EM` varchar(19) DEFAULT '2026-01-01',
+  `VERSAO_ATUAL` varchar(5) DEFAULT 'false',
+  `ULTIMO_MES_REALIZADO` int DEFAULT 0,
+  `VERSAO_CONTROLE` varchar(5) DEFAULT 'false',
+  `VERSAO_ORIGEM_ID` int,
+  `CRIADO_POR` varchar(200),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `COLABORADOR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `CR_ID` int NOT NULL,
+  `EMPRESA_ID` int,
+  `CARGO` varchar(100),
+  `DATA_ADMISSAO` varchar(10),
+  `SALARIO` decimal(15,2),
+  `TIPO_CONTRATO` varchar(10) DEFAULT 'CLT',
+  `ATIVO` varchar(5) DEFAULT 'true',
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CONTA_CONTABIL` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CODIGO` varchar(20) NOT NULL,
+  `NOME` varchar(200) NOT NULL,
+  `TIPO` varchar(50),
+  `NATUREZA` varchar(20),
+  `ATIVO` varchar(5) DEFAULT 'true',
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CONTA_DRIVER` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CONTA_ID` int NOT NULL,
+  `DRIVER_ID` int,
+  `CRIADO_EM` varchar(19),
+  `PACOTE_ID` int,
+  UNIQUE KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CONTA_DRIVER_EXCECAO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `DRIVER_ID` int,
+  `ATIVO` tinyint(1) DEFAULT 1,
+  `CRIADO_EM` varchar(19),
+  `PACOTE_ID` int,
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UQ_CR_CONTA` (`CR_ID`, `CONTA_ID`)
+);
+
+CREATE TABLE `CONTRATACAO_PROJETADA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `CARGO_ID` int NOT NULL,
+  `MES_ENTRADA` int NOT NULL DEFAULT 1,
+  `MOTIVO` varchar(50) DEFAULT 'AUMENTO_QUADRO',
+  `CRIADO_EM` varchar(19),
+  `QTD_VAGAS` int NOT NULL DEFAULT 1,
+  `JUSTIFICATIVA` varchar(500),
+  KEY `CARGO_ID` (`CARGO_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `CR_CONTA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `ATIVO` tinyint(1) DEFAULT 1,
+  `CRIADO_EM` varchar(19),
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UQ_CR_CONTA` (`CR_ID`, `CONTA_ID`)
+);
+
+CREATE TABLE `DESLIGAMENTO_PROJETADO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `COLABORADOR_ID` int NOT NULL,
+  `MES_DESLIGAMENTO` int NOT NULL,
+  `CRIADO_EM` varchar(19),
+  KEY `FK_DESLIGAMENTO_COLAB` (`COLABORADOR_ID`),
+  KEY `FK_DESLIGAMENTO_CR` (`CR_ID`),
+  KEY `IDX_DESLIGAMENTO_CICLO_CR` (`CICLO_ID`, `CR_ID`),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UQ_DESLIGAMENTO_CICLO_COLAB` (`CICLO_ID`, `COLABORADOR_ID`)
+);
+
+CREATE TABLE `DIM_1` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  `ID_2` int,
+  `ID_5` int,
+  `ID_6` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_151` (
+  `ID` int NOT NULL,
+  `ID_152` int,
+  `DESCR` varchar(256),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_152` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_2` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  `ID_3` int,
+  `ID_102` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_3` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  `ID_4` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_4` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_5` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_51` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  `ID_52` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_52` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DIM_6` (
+  `ID` int NOT NULL,
+  `DESCR` varchar(256),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DRE_CONFIG` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ORDEM` int NOT NULL,
+  `NOME_LINHA` varchar(200) NOT NULL,
+  `TIPO` varchar(30) DEFAULT 'CONTA',
+  `PREFIXO_CONTA` varchar(20),
+  `SINAL` int DEFAULT 1,
+  `LINHA_PAI_ID` int,
+  `IS_SUBTOTAL` varchar(5) DEFAULT 'false',
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DRIVERS` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(100) NOT NULL,
+  `DESCRICAO` varchar(500),
+  `COR` varchar(20) DEFAULT 'info',
+  `ATIVO` varchar(5) DEFAULT 'true',
+  `CRIADO_EM` varchar(19),
+  `TIPO_DRIVER` varchar(20) DEFAULT 'NORMAL',
+  `ORIGEM` varchar(10),
+  `ORDEM` int DEFAULT 0,
+  `ESCOPO` varchar(10),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DRIVER_CONFIG` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `DRIVER_TIPO` varchar(30) NOT NULL,
+  `CICLO_ID` int,
+  `DRIVER_ID` int,
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DRIVER_FORMULA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DRIVER_ID` int NOT NULL,
+  `CONTA_ID` int,
+  `FORMULA` varchar(500) NOT NULL,
+  `DESCRICAO` varchar(200),
+  `TIPO` varchar(20) DEFAULT 'FORMULA',
+  `ORDEM` int DEFAULT 0,
+  `NOME_CUSTOM` varchar(200),
+  `LABEL` varchar(200),
+  `ESCONDER` tinyint(1) DEFAULT 0,
+  `NEGRITO` tinyint(1) DEFAULT 0,
+  `FORMATO` varchar(20) DEFAULT 'SEM_PREFIXO',
+  `CODIGO` varchar(20),
+  `GRANULARIDADE` varchar(10),
+  `RATEIO_ID` int,
+  `PREMISSA_NOME` varchar(200),
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DRIVER_FORMULA_CR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `FORMULA_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `TIPO` varchar(20) DEFAULT 'FORMULA',
+  `FORMULA` varchar(500) NOT NULL,
+  `CRIADO_EM` varchar(19),
+  KEY `CR_ID` (`CR_ID`),
+  KEY `FORMULA_ID` (`FORMULA_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `DRIVER_FORMULA_VALOR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `FORMULA_ID` int NOT NULL,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `MES` int NOT NULL,
+  `VALOR` decimal(15,4) DEFAULT 0.0000,
+  `PACOTE_ID` int NOT NULL DEFAULT 0,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `uq_dfv_pkg` (`FORMULA_ID`, `CICLO_ID`, `PACOTE_ID`, `CR_ID`, `MES`)
+);
+
+CREATE TABLE `DRIVER_VERSAO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DRIVER_ID` int NOT NULL,
+  `NUMERO` int NOT NULL,
+  `SNAPSHOT` longtext,
+  `CRIADO_EM` varchar(19),
+  `CRIADO_POR` varchar(100),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `EMPRESA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `CNPJ` varchar(20),
+  `ATIVO` varchar(5) DEFAULT 'true',
+  `CRIADO_EM` varchar(19) DEFAULT '2026-01-01',
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `ENCARGO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `PERCENTUAL` decimal(5,2) DEFAULT 0.00,
+  `APLICA_PJ` varchar(5) DEFAULT 'false',
+  `APLICA_CLT` varchar(5) DEFAULT 'true',
+  `CICLO_ID` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `EXPORT_CODIGO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `TIPO` varchar(10),
+  `CHAVE_ARQUIVO` varchar(400),
+  `TAMANHO_BYTES` bigint,
+  `CRIADO_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `EXPORT_DONOS` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `EMAIL` varchar(200),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `EXPORT_GIT` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ESTADO` varchar(10),
+  `ETAPA` varchar(200),
+  `ERRO` varchar(500),
+  `ARQUIVOS` int,
+  `COMMIT_URL` varchar(400),
+  `REPO_URL` varchar(400),
+  `INICIOU_EM` varchar(19),
+  `TERMINOU_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `EXPORT_LEVE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(100),
+  `ESTADO` varchar(10),
+  `ETAPA` varchar(200),
+  `ERRO` varchar(500),
+  `CHAVE_ARQUIVO` varchar(400),
+  `TAMANHO_BYTES` bigint,
+  `CRIADO_EM` varchar(19),
+  `TERMINOU_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `EXPORT_PACOTE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(100),
+  `ESTADO` varchar(10),
+  `ETAPA` varchar(200),
+  `ERRO` varchar(500),
+  `CHAVE_ARQUIVO` varchar(400),
+  `TAMANHO_BYTES` bigint,
+  `CRIADO_EM` varchar(19),
+  `TERMINOU_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `GESTOR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `EMAIL` varchar(200),
+  `ATIVO` varchar(5) DEFAULT 'true',
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `GESTOR_CR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `GESTOR_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  KEY `CR_ID` (`CR_ID`),
+  KEY `GESTOR_ID` (`GESTOR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `GESTOR_PACOTE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `GESTOR_ID` int NOT NULL,
+  `DRIVER_ID` int NOT NULL,
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  KEY `GESTOR_ID` (`GESTOR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `HIST_PREMISSA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `PERCENTUAL` decimal(10,2) DEFAULT 0.00,
+  `MODO` varchar(20) DEFAULT 'sazonalidade',
+  `JUSTIFICATIVA` varchar(500),
+  `CRIADO_EM` varchar(19),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UK_HIST_PREMISSA_CICLO_CR_CONTA` (`CICLO_ID`, `CR_ID`, `CONTA_ID`)
+);
+
+CREATE TABLE `JAVA_DATE_FORMAT` (
+  `ID` bigint NOT NULL,
+  `DATE_FORMAT` varchar(100),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `ORCAMENTO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `MES` int NOT NULL,
+  `VALOR` decimal(15,2) DEFAULT 0.00,
+  `QUANTIDADE` decimal(15,4) DEFAULT 0.0000,
+  `VALOR_UNITARIO` decimal(15,4) DEFAULT 0.0000,
+  KEY `CICLO_ID` (`CICLO_ID`),
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UX_ORCAMENTO` (`CICLO_ID`, `CR_ID`, `CONTA_ID`, `MES`)
+);
+
+CREATE TABLE `ORCAMENTO_PACOTE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `DRIVER_ID` int NOT NULL,
+  `CONTA_ID` int,
+  `MES` int NOT NULL,
+  `VALOR` decimal(15,2) DEFAULT 0.00,
+  `CR_ID` int,
+  KEY `CICLO_ID` (`CICLO_ID`),
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `ORCAMENTO_PESSOAL` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `COLABORADOR_ID` int,
+  `MES` int NOT NULL,
+  `SALARIO` decimal(15,2) DEFAULT 0.00,
+  `BENEFICIOS` decimal(15,2) DEFAULT 0.00,
+  `ENCARGOS` decimal(15,2) DEFAULT 0.00,
+  `TOTAL` decimal(15,2) DEFAULT 0.00,
+  KEY `CICLO_ID` (`CICLO_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `ORCAMENTO_STATUS` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `GESTOR_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `STATUS` varchar(20) DEFAULT 'PENDENTE',
+  `COMENTARIO` varchar(500),
+  `ATUALIZADO_EM` varchar(19),
+  `DRIVERS_CONFIRMADOS` varchar(500),
+  `TOTAL_MODELOS` int,
+  KEY `CICLO_ID` (`CICLO_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  KEY `GESTOR_ID` (`GESTOR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PACOTE_STATUS` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `DRIVER_ID` int NOT NULL,
+  `GESTOR_ID` int NOT NULL,
+  `STATUS` varchar(20) DEFAULT 'PENDENTE',
+  `COMENTARIO` varchar(500),
+  `ATUALIZADO_EM` varchar(19),
+  `DRIVERS_CONFIRMADOS` varchar(500) DEFAULT '',
+  `TOTAL_MODELOS` int,
+  KEY `CICLO_ID` (`CICLO_ID`),
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  KEY `GESTOR_ID` (`GESTOR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PKG_RATEIO_CONFIG` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `PACOTE_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `MODELO` varchar(50) NOT NULL,
+  `MODE` varchar(20) DEFAULT 'IGUAL',
+  `ATUALIZADO_EM` varchar(19),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UQ_PKG_RATEIO` (`PACOTE_ID`, `CONTA_ID`, `MODELO`)
+);
+
+CREATE TABLE `PLAYGROUND` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `USUARIO` varchar(200),
+  `NOME` varchar(200),
+  `HTML` longtext,
+  `TASK_ID` varchar(100),
+  `SHARE_TOKEN` varchar(64),
+  `CONVERSA` longtext,
+  `ATIVO` varchar(5) DEFAULT 'true',
+  `CRIADO_EM` varchar(19),
+  `ATUALIZADO_EM` varchar(19),
+  `USUARIO_ID` int,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PLAYGROUND_VERSAO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `PLAYGROUND_ID` int,
+  `HTML` longtext,
+  `CRIADO_EM` varchar(19),
+  KEY `PLAYGROUND_ID` (`PLAYGROUND_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PREENCHIMENTO_TOKEN` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `GESTOR_ID` int NOT NULL,
+  `TOKEN` varchar(36) NOT NULL,
+  `ATIVO` varchar(5) DEFAULT 'true',
+  `CRIADO_EM` varchar(19),
+  `EXPIRA_EM` varchar(19),
+  KEY `IDX_PREENCH_TOKEN` (`TOKEN`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PREMISSA_DISSIDIO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `EMPRESA_ID` int NOT NULL,
+  `PERCENTUAL` decimal(6,2) NOT NULL DEFAULT 0.00,
+  `MES_APLICACAO` int NOT NULL DEFAULT 1,
+  `CRIADO_EM` varchar(19),
+  KEY `EMPRESA_ID` (`EMPRESA_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PREMISSA_IMPOSTO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `PERCENTUAL` decimal(10,4) DEFAULT 0.0000,
+  `CRIADO_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PREMISSA_LINHA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `NOME` varchar(200) NOT NULL,
+  `ORDEM` int DEFAULT 0,
+  `CRIADO_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PREMISSA_TURNOVER` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `EMPRESA_ID` int NOT NULL,
+  `PERCENTUAL` decimal(6,2) NOT NULL DEFAULT 0.00,
+  `CRIADO_EM` varchar(19),
+  KEY `EMPRESA_ID` (`EMPRESA_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `PREMISSA_VALOR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `LINHA_ID` int NOT NULL,
+  `MES` int NOT NULL,
+  `VALOR` decimal(15,4) DEFAULT 0.0000,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UK_PREMISSA_VALOR` (`LINHA_ID`, `MES`)
+);
+
+CREATE TABLE `PROJECAO_HEADCOUNT` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `CARGO_ID` int NOT NULL,
+  `MES` int NOT NULL,
+  `QUANTIDADE` int DEFAULT 0,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `RATEIO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(200) NOT NULL,
+  `DESCRICAO` varchar(500),
+  `ATIVO` tinyint(1) DEFAULT 1,
+  `CRIADO_EM` varchar(19),
+  `TIPO` varchar(15),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `RATEIO_CONFIG` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DRIVER_ID` int NOT NULL,
+  `TIPO_RATEIO` varchar(20) NOT NULL,
+  `BASE_PROPORCIONAL` varchar(50),
+  `CRIADO_EM` varchar(19),
+  KEY `DRIVER_ID` (`DRIVER_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `RATEIO_CR` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `RATEIO_CONFIG_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `PERCENTUAL` decimal(10,4) DEFAULT 0.0000,
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`),
+  KEY `RATEIO_CONFIG_ID` (`RATEIO_CONFIG_ID`)
+);
+
+CREATE TABLE `RATEIO_ITEM` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `RATEIO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `QUANTIDADE` decimal(15,4) DEFAULT 0.0000,
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `uq_rateio_cr` (`RATEIO_ID`, `CR_ID`)
+);
+
+CREATE TABLE `REALIZADO_CONTABIL` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `EMPRESA_ID` int,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `ANO` int NOT NULL,
+  `MES` int NOT NULL,
+  `VALOR` decimal(15,2) DEFAULT 0.00,
+  KEY `CONTA_ID` (`CONTA_ID`),
+  KEY `CR_ID` (`CR_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `RECEITA_CONFIG` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CONTA_ID` int NOT NULL,
+  `TIPO_RECEITA` varchar(20) NOT NULL DEFAULT 'SERVICO',
+  `CRIADO_EM` varchar(19),
+  KEY `CONTA_ID` (`CONTA_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `RECEITA_PREMISSA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `CR_ID` int NOT NULL,
+  `CONTA_ID` int NOT NULL,
+  `TIPO_RECEITA` varchar(20) NOT NULL,
+  `ITEM_NOME` varchar(200) NOT NULL,
+  `LINHA` varchar(50) NOT NULL,
+  `MES` int NOT NULL,
+  `VALOR` decimal(15,2) DEFAULT 0.00,
+  `CRIADO_EM` varchar(19),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `RECEITA_PRODUTO` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CONTA_ID` int NOT NULL,
+  `NOME` varchar(200) NOT NULL,
+  `ORDEM` int DEFAULT 0,
+  `CRIADO_EM` varchar(19),
+  KEY `CONTA_ID` (`CONTA_ID`),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `USUARIOS` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `EMAIL` varchar(200),
+  `SENHA` varchar(100),
+  `NOME` varchar(200),
+  `PERFIL` varchar(50),
+  `AREA` varchar(100),
+  `AVATAR` varchar(10),
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `WORKFLOW_AUDITORIA` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `CICLO_ID` int NOT NULL,
+  `TIPO` varchar(10) NOT NULL,
+  `CR_ID` int,
+  `DRIVER_ID` int,
+  `GESTOR_ID` int,
+  `EVENTO` varchar(30) NOT NULL,
+  `STATUS_DE` varchar(20),
+  `STATUS_PARA` varchar(20),
+  `COMENTARIO` varchar(500),
+  `AUTOR` varchar(200),
+  `ORIGEM` varchar(10),
+  `CRIADO_EM` varchar(19),
+  KEY `CICLO_ID` (`CICLO_ID`),
+  PRIMARY KEY (`ID`)
+);
+

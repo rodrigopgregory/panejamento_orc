@@ -1,0 +1,9 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (117, 'hotPkgRealizadoAnterior', 'Realizado ano anterior das contas do pacote.', 'SQL', 'SELECT rc.CONTA_ID, SUM(rc.VALOR) as VALOR
+     FROM REALIZADO_CONTABIL rc
+     JOIN (
+       SELECT crc.CR_ID, crc.CONTA_ID FROM CR_CONTA crc
+       LEFT JOIN CONTA_DRIVER cd ON cd.CONTA_ID = crc.CONTA_ID
+       LEFT JOIN CONTA_DRIVER_EXCECAO ex ON ex.CR_ID = crc.CR_ID AND ex.CONTA_ID = crc.CONTA_ID AND ex.ATIVO = true
+       WHERE crc.ATIVO = true AND COALESCE(ex.PACOTE_ID, cd.PACOTE_ID, ex.DRIVER_ID, cd.DRIVER_ID) = {{pkgId}}
+     ) reg ON reg.CR_ID = rc.CR_ID AND reg.CONTA_ID = rc.CONTA_ID
+     WHERE rc.ANO = {{ano}} GROUP BY rc.CONTA_ID', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

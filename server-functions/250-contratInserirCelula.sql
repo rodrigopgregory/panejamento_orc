@@ -1,0 +1,2 @@
+-- tipo: SQL | Grade de contratacoes: grava a qtd de vagas da celula (ciclo, CR, cargo, mes). Params: cicloId, crId, cargoId, mes, qtd (numericos), justificativa (texto escapado), criadoEm (YYYY-MM-DDTHH:mm:ss)
+INSERT INTO CONTRATACAO_PROJETADA (CICLO_ID, CR_ID, CARGO_ID, MES_ENTRADA, MOTIVO, QTD_VAGAS, JUSTIFICATIVA, CRIADO_EM) VALUES ({{cicloId}}, {{crId}}, {{cargoId}}, {{mes}}, 'AUMENTO_QUADRO', {{qtd}}, '{{justificativa}}', '{{criadoEm}}')

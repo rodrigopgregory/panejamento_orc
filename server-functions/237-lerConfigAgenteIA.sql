@@ -1,0 +1,2 @@
+-- tipo: SQL | Le a configuracao do agente de IA (AGENT_MODEL_ID, AGENT_TYPE, AGENT_CONNECTION_ID) em APP_CONFIG. Valor vazio = usar o default do app.
+SELECT CHAVE, VALOR FROM APP_CONFIG WHERE CHAVE IN ('AGENT_MODEL_ID', 'AGENT_TYPE', 'AGENT_CONNECTION_ID')

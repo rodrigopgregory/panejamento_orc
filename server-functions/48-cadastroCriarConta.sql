@@ -1,0 +1,2 @@
+-- tipo: SQL | Cria conta contabil (params: codigo, nome, tipo, natureza, ativo)
+INSERT INTO CONTA_CONTABIL (CODIGO, NOME, TIPO, NATUREZA, ATIVO) VALUES ('{{codigo}}', '{{nome}}', '{{tipo}}', '{{natureza}}', '{{ativo}}')

@@ -1,0 +1,44 @@
+ID,NOME,CR_ID,EMPRESA_ID,CARGO,DATA_ADMISSAO,SALARIO,TIPO_CONTRATO,ATIVO
+1,Paulo Ribeiro,1,1,Gerente Comercial,2020-03-15,18000,CLT,true
+2,Fernanda Lima,1,1,Executiva de Vendas,2021-07-01,12000,CLT,true
+3,Lucas Santos,1,1,Analista Comercial,2023-01-10,7500,CLT,true
+4,Marcos Vieira,1,1,Consultor de Vendas,2024-06-01,15000,PJ,true
+5,Rafael Oliveira,2,1,CTO,2019-01-02,25000,CLT,true
+6,Marina Souza,2,1,Tech Lead,2020-06-15,18000,CLT,true
+7,Diego Ferreira,2,1,Desenvolvedor Sr,2021-03-01,14000,CLT,true
+8,Camila Rocha,2,1,Desenvolvedora Pl,2022-08-15,10000,CLT,true
+9,Andre Martins,2,1,Analista Junior,2023-02-01,16000,PJ,true
+10,Isabela Nunes,2,1,QA Engineer,2023-09-01,8500,CLT,true
+11,Patricia Gomes,3,1,CFO,2019-06-01,22000,CLT,true
+12,Bruno Carvalho,3,1,Controller,2021-01-15,15000,CLT,true
+13,Tatiana Dias,3,1,Analista Financeira,2022-04-01,8000,CLT,true
+14,Ricardo Mendes,4,2,Gerente de Operacoes,2020-02-01,16000,CLT,true
+15,Aline Pereira,4,2,Coordenadora,2021-05-15,12000,CLT,true
+16,Gustavo Silva,4,2,Analista de Processos,2023-03-01,7000,CLT,true
+17,Renata Costa,4,2,Assistente,2024-01-15,4500,CLT,true
+18,Cristina Borges,5,1,Gerente de RH,2020-01-10,15000,CLT,true
+19,Felipe Alves,5,1,Analista de RH,2022-06-01,7000,CLT,true
+20,Daniela Santos,6,2,Head de Marketing,2020-09-01,16000,CLT,true
+21,Thiago Lima,6,2,Designer Sr,2021-11-15,10000,CLT,true
+22,Vanessa Melo,6,2,Social Media,2023-05-01,5500,PJ,true
+23,Eduardo Pires,7,3,Diretor de Projetos,2019-08-01,20000,CLT,true
+24,Larissa Fonseca,7,3,Gerente de Projetos,2021-02-01,14000,CLT,true
+25,Pedro Henrique,7,3,Consultor,2022-10-01,11000,CLT,true
+26,Mariana Duarte,8,3,Diretora de Estrategia,2019-04-01,22000,CLT,true
+27,Alexandre Castro,8,3,Consultor Senior,2020-11-15,16000,CLT,true
+28,Beatriz Ramos,8,3,Analista Estrategica,2023-07-01,9000,CLT,true
+29,Gabriel Teixeira,8,3,Consultor Jr,2024-03-01,12000,PJ,true
+30,Bruno Cardoso,2,1,Desenvolvedor Sr,2022-02-01,14500,CLT,true
+31,Larissa Mendes,2,1,Desenvolvedora Sr,2021-09-13,14000,CLT,true
+32,Thiago Almeida,2,1,Desenvolvedor Pl,2023-03-06,10500,CLT,true
+33,Juliana Castro,2,1,Desenvolvedora Pl,2023-05-15,10000,CLT,true
+34,Gabriel Teixeira,2,1,Desenvolvedor Jr,2024-01-08,6500,CLT,true
+35,Beatriz Fonseca,2,1,Desenvolvedora Jr,2024-04-01,6200,CLT,true
+36,Ricardo Pires,2,1,Arquiteto de Software,2020-11-03,21000,PJ,true
+37,Vanessa Duarte,2,1,Product Manager,2021-06-14,17000,CLT,true
+38,Felipe Barros,2,1,Product Designer,2022-08-22,11000,CLT,true
+39,Amanda Reis,2,1,QA Engineer,2022-10-17,9000,CLT,true
+40,Lucas Vieira,2,1,DevOps,2021-12-01,15500,PJ,true
+41,Patricia Moraes,2,1,Analista de Dados,2023-02-13,9500,CLT,true
+42,Eduardo Santana,2,1,Engenheiro de Dados,2022-05-09,13500,CLT,true
+43,Renata Campos,2,1,Scrum Master,2023-07-03,12000,CLT,true

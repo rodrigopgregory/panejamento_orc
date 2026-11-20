@@ -1,0 +1,13 @@
+ID,ORDEM,NOME_LINHA,TIPO,PREFIXO_CONTA,SINAL,LINHA_PAI_ID,IS_SUBTOTAL
+1,1,Receita Bruta,CONTA,3.1,1,,false
+2,2,(-) Impostos sobre Receita,CONTA,3.2,-1,,false
+3,3,= Receita Líquida,SUBTOTAL,,1,,true
+4,4,(-) CMV / CSP,CONTA,4.1,-1,,false
+5,5,= Lucro Bruto,SUBTOTAL,,1,,true
+6,6,(-) Despesas com Pessoal,CONTA,5.1,-1,,false
+7,7,(-) Despesas Operacionais,CONTA,5.2,-1,,false
+8,8,(-) Despesas com Marketing,CONTA,5.3,-1,,false
+9,9,(-) Despesas Administrativas,CONTA,5.4,-1,,false
+10,10,= EBITDA,SUBTOTAL,,1,,true
+11,11,Resultado Financeiro,CONTA,6.1,1,,false
+12,12,= Resultado Líquido,SUBTOTAL,,1,,true

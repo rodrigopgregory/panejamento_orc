@@ -1,0 +1,13 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (190, 'playground_restaurar', 'Playground: restaura uma versao de HTML (versionando a atual). Input { id, versaoId }.', 'JAVASCRIPT', 'const { runDmlMitra, runQueryMitra } = require(''mitra-sdk'');
+const projectId = parseInt(process.env.MITRA_PROJECT_ID);
+const esc = (s) => String(s).replace(/\\\\/g, ''\\\\\\\\'').replace(/''/g, "''''");
+const agora = new Date().toISOString().slice(0, 19);
+const id = parseInt(event.id);
+const versaoId = parseInt(event.versaoId);
+if (!id || !versaoId) throw new Error(''id e versaoId obrigatorios'');
+const v = await runQueryMitra({ projectId, sql: ''SELECT HTML FROM PLAYGROUND_VERSAO WHERE ID = '' + versaoId + '' AND PLAYGROUND_ID = '' + id });
+const rows = (v && v.result && v.result.rows) ? v.result.rows : [];
+if (!rows.length) throw new Error(''versao nao encontrada'');
+await runDmlMitra({ projectId, sql: "INSERT INTO PLAYGROUND_VERSAO (PLAYGROUND_ID, HTML, CRIADO_EM) SELECT ID, HTML, ''" + agora + "'' FROM PLAYGROUND WHERE ID = " + id + " AND HTML IS NOT NULL AND HTML <> ''''" });
+await runDmlMitra({ projectId, sql: "UPDATE PLAYGROUND SET HTML = ''" + esc(rows[0].HTML || '''') + "'', ATUALIZADO_EM = ''" + agora + "'' WHERE ID = " + id });
+return { ok: true };', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

@@ -1,0 +1,9 @@
+ID,CODIGO,NOME,EMPRESA_ID,ATIVO
+1,CR001,Diretoria Comercial,1,true
+2,CR002,Diretoria de Tecnologia,1,true
+3,CR003,Diretoria Financeira,1,true
+4,CR004,Operações,2,true
+5,CR005,Recursos Humanos,1,true
+6,CR006,Marketing,2,true
+7,CR007,Consultoria Projetos,3,true
+8,CR008,Consultoria Estratégia,3,true

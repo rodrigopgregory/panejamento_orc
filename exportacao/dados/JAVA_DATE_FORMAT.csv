@@ -1,0 +1,22 @@
+ID,DATE_FORMAT
+1,yyyy/MM/dd HH:mm:ss
+2,yyyy/MM/dd
+3,dd-MM-yyyy HH:mm:ss
+4,dd-MM-yyyy
+5,dd/MM/yyyy HH:mm:ss
+6,dd/MM/yyyy
+7,yyyy-MM-dd HH:mm:ss
+8,yyyy-MM-dd
+9,MM/dd/yyyy HH:mm:ss
+10,MM/dd/yyyy
+11,MM-dd-yyyy  HH:mm:ss
+12,MM-dd-yyyy
+13,MM-yyyy HH:mm:ss
+14,MM-yyyy
+15,MM/yyyy HH:mm:ss
+16,MM/yyyy
+17,ddMMyyyy HH:mm:ss
+18,yyyy-MM-dd HH:mm:ss.S
+19,dd-MMM-yyyy HH:mm:ss
+20,dd-MMM-yyyy
+21,yyyyMMdd

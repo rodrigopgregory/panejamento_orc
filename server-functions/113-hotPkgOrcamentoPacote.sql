@@ -1,0 +1,2 @@
+-- tipo: SQL | ORCAMENTO_PACOTE do pacote/ciclo.
+SELECT * FROM ORCAMENTO_PACOTE WHERE DRIVER_ID = {{pkgId}} AND CICLO_ID = {{cicloId}}

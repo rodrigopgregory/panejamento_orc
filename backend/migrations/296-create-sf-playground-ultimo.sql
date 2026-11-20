@@ -1,0 +1,1 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (179, 'playground_ultimo', 'Playground: ID do estudo mais recente do usuario — param usuario.', 'SQL', 'SELECT MAX(ID) AS ID FROM PLAYGROUND WHERE USUARIO = ''{{usuario}}''', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

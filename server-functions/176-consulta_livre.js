@@ -1,0 +1,17 @@
+-- tipo: JAVASCRIPT | Playground: SELECT livre com guardas (so SELECT, 1 statement, LIMIT 200 forcado). Input {"consulta": "SELECT ..."}. Retorna { rowCount, rows }.
+if (/git_config/i.test(JSON.stringify(event))) throw new Error('Tabela nao permitida');
+const { runQueryMitra } = require('mitra-sdk');
+const projectId = parseInt(process.env.MITRA_PROJECT_ID);
+const sql = String(event.consulta || '').trim();
+if (!sql) throw new Error('Informe a consulta em {"consulta": "SELECT ..."}');
+const noComments = sql.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/--[^\n]*/g, ' ').replace(/#[^\n]*/g, ' ').trim();
+if (!/^(select|with)\b/i.test(noComments)) throw new Error('Apenas consultas SELECT sao permitidas');
+const semLiterais = noComments.replace(/'(?:[^'\\]|\\.|'')*'/g, "''");
+if (semLiterais.replace(/;\s*$/, '').includes(';')) throw new Error('Apenas uma instrucao por consulta');
+if (/\binto\s+(outfile|dumpfile)\b/i.test(semLiterais)) throw new Error('INTO OUTFILE nao permitido');
+if (/\b(insert|update|delete|drop|alter|create|truncate|grant|revoke|rename|call|handler|load)\b/i.test(semLiterais)) throw new Error('Instrucao nao permitida — apenas SELECT');
+let finalSql = noComments.replace(/;\s*$/, '');
+if (!/\blimit\s+\d+/i.test(semLiterais)) finalSql += ' LIMIT 200';
+const r = await runQueryMitra({ projectId, sql: finalSql });
+const rows = (r && r.result && r.result.rows) ? r.result.rows : [];
+return { rowCount: rows.length, rows };

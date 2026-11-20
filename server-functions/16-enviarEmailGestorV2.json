@@ -1,0 +1,12 @@
+-- tipo: INTEGRATION | Envia email para gestores usando servico nativo Mitra
+const { sendEmailMitra } = require('mitra-sdk');
+
+const to = Array.isArray(event.to) ? event.to : [event.to];
+const result = await sendEmailMitra({
+  projectId: 44374,
+  to,
+  subject: event.subject,
+  body: event.body,
+});
+
+return { success: true, message: result.message || 'Email enviado', recipientCount: to.length };

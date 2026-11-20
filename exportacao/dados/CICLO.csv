@@ -1,0 +1,7 @@
+ID,NOME,ANO,STATUS,CRIADO_EM,VERSAO_ATUAL,ULTIMO_MES_REALIZADO,VERSAO_CONTROLE,VERSAO_ORIGEM_ID,CRIADO_POR
+49,Versão 2025,2025,FECHADO,2026-03-31,false,1,false,,mateus.silva@mitralab.io
+114,Versão 1,2026,FECHADO,2026-04-28,false,0,true,,sarah@mitralab.io
+120,Versão 2 - 2026,2026,FECHADO,2026-05-21,false,5,false,,sarah@mitralab.io
+121,Orçamento 2026: 0+12,2026,FECHADO,2026-06-26,false,0,false,,victor.oliveira@mitralab.io
+132,Revisão Orçamento,2026,FECHADO,2026-07-13,false,5,false,,Paula
+133,Forecast 2026 (5+7),2026,INICIADA,2026-07-15,true,5,false,,Paula

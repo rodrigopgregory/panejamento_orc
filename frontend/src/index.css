@@ -1,0 +1,2106 @@
+@import "tailwindcss";
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "handsontable/styles/handsontable.min.css" layer(handsontable);
+@import "handsontable/styles/ht-theme-main.min.css" layer(handsontable);
+
+/* O tema ativo vem de data-theme no <html>; a classe .dark acompanha para o
+   variante `dark:` do Tailwind e para as regras legadas deste arquivo. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM MITRA — tokens (tema claro)
+   Uma marca por ambiente: so --brand e' sobrescrito; accent, hover, fundo
+   suave, borda e anel derivam dela por color-mix.
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: light;
+
+  --bg: #fafafb;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #f4f3f6;
+  --bg-overlay: #0f0c1c8c;
+  --surface: #ffffff;
+  --surface-hover: #f7f6fa;
+  --surface-active: #f1eff5;
+  --surface-muted: #f4f3f6;
+
+  --border: #ececef;
+  --border-strong: #dcdbe1;
+  --border-subtle: #f1f0f3;
+
+  --fg: #15131c;
+  --fg-muted: #5a576a;
+  --fg-subtle: #8a8794;
+  --fg-disabled: #b3b1bc;
+  --fg-inverted: #ffffff;
+
+  --brand: #4b5563;
+  --accent: var(--brand);
+  --accent-hover: color-mix(in srgb, var(--brand) 88%, black);
+  --accent-soft: color-mix(in srgb, var(--brand) 8%, transparent);
+  --accent-soft-hover: color-mix(in srgb, var(--brand) 14%, transparent);
+  --accent-fg: #ffffff;
+  --accent-border: color-mix(in srgb, var(--brand) 32%, transparent);
+
+  --success: #1d9d6c;
+  --success-soft: #1d9d6c1a;
+  --warning: #c98a16;
+  --warning-soft: #c98a161a;
+  --danger: #d4322c;
+  --danger-soft: #d4322c1a;
+  --info: #2779d8;
+  --info-soft: #2779d81a;
+
+  --ring: color-mix(in srgb, var(--brand) 32%, transparent);
+
+  --shadow-sm: 0 1px 2px 0 #1412200a;
+  --shadow-md: 0 1px 2px #1412200a, 0 8px 24px -8px #14122014;
+  --shadow-lg: 0 4px 12px -4px #14122014, 0 24px 48px -12px #1412202e;
+  --shadow-pop: 0 24px 64px -16px #14122038, 0 8px 16px -8px #1412201f;
+
+  --chart-1: #7839ee;
+  --chart-2: #28a7f8;
+  --chart-3: #1d9d6c;
+  --chart-4: #c98a16;
+  --chart-5: #d4327f;
+  --chart-6: #5577f6;
+  --chart-7: #d4322c;
+  --chart-8: #0d9488;
+
+  --gradient-brand: linear-gradient(135deg, #8d65f5 0%, #7839ee 35%, #5577f6 65%, #28a7f8 100%);
+
+  /* Forma: um so lugar decide raio e altura de controle */
+  --raio-cartao: 20px;
+  --raio-controle: 12px;
+  --altura-controle: 36px;
+  --altura-topo: 57px;
+}
+
+/* ═══ Tokens — tema escuro ═══ */
+[data-theme="dark"], .dark {
+  color-scheme: dark;
+
+  --bg: #0b0c0e;
+  --bg-elevated: #16181b;
+  --bg-sunken: #07080a;
+  --bg-overlay: #000000a8;
+  --surface: #16181b;
+  --surface-hover: #1c1f22;
+  --surface-active: #202429;
+  --surface-muted: #111316;
+
+  --border: #20242a;
+  --border-strong: #2c3137;
+  --border-subtle: #0f1114;
+
+  --fg: #f1f3f5;
+  --fg-muted: #a5aab2;
+  --fg-subtle: #6e757d;
+  --fg-disabled: #484d53;
+  --fg-inverted: #0b0c0e;
+
+  --brand: #a0a7b0;
+  --accent-hover: color-mix(in srgb, var(--brand) 80%, white);
+  --accent-soft: color-mix(in srgb, var(--brand) 14%, transparent);
+  --accent-soft-hover: color-mix(in srgb, var(--brand) 20%, transparent);
+  --accent-border: color-mix(in srgb, var(--brand) 40%, transparent);
+
+  --success: #2bbf85;
+  --success-soft: #2bbf8526;
+  --warning: #e3a232;
+  --warning-soft: #e3a23226;
+  --danger: #ec6863;
+  --danger-soft: #ec686326;
+  --info: #4d99ee;
+  --info-soft: #4d99ee26;
+
+  --ring: color-mix(in srgb, var(--brand) 50%, transparent);
+
+  --shadow-sm: 0 1px 2px 0 #0006;
+  --shadow-md: 0 1px 2px #0000004d, 0 8px 24px -8px #0006;
+  --shadow-lg: 0 4px 12px -4px #0006, 0 24px 48px -12px #0000008c;
+  --shadow-pop: 0 24px 64px -16px #000000b3, 0 8px 16px -8px #0006;
+
+  --chart-1: #a586ff;
+  --chart-2: #4ec0fb;
+  --chart-3: #2bbf85;
+  --chart-4: #e3a232;
+  --chart-5: #ed5a99;
+  --chart-6: #7796ff;
+  --chart-7: #ec6863;
+  --chart-8: #2dd4bf;
+}
+
+/* ═══ Apelidos (--color-*) — os nomes que as telas usam ═══ */
+:root {
+  --color-primary: var(--accent);
+  --color-primary-hover: var(--accent-hover);
+  --color-primary-light: color-mix(in srgb, var(--brand) 55%, white);
+  --color-primary-bg: var(--accent-soft);
+  --color-primary-soft: var(--accent-soft-hover);
+  --color-primary-glow: var(--accent-soft-hover);
+
+  --color-bg: var(--bg);
+  --color-bg-muted: var(--surface-muted);
+  --color-surface: var(--bg-elevated);
+  --color-hover: var(--surface-hover);
+
+  --color-nav: var(--bg-elevated);
+  --color-nav-text: var(--fg-muted);
+  --color-nav-active: var(--accent);
+  --color-nav-hover: var(--surface-hover);
+
+  /* Menu lateral: o peso do item vem do estado (ativo/hover), nao da cor.
+     Os itens ficam um tom mais leves que o texto do app e o rotulo de secao,
+     mais leve ainda — ambos acima do contraste AA. Mistura com --bg (e nao com
+     branco) para aliviar tambem no tema escuro, onde clarear aumentaria o peso. */
+  --color-menu-item: color-mix(in srgb, var(--fg-muted) 90%, var(--bg));
+  --color-menu-item-hover: var(--fg-muted);
+  --color-menu-secao: color-mix(in srgb, var(--fg-subtle) 55%, var(--fg-muted));
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-subtle: var(--border-subtle);
+  --color-divisor: var(--border);
+
+  --color-text: var(--fg);
+  --color-text-secondary: var(--fg-muted);
+  --color-text-muted: var(--fg-subtle);
+  --color-brand-ink: var(--fg-muted);
+
+  --color-ok: var(--success);
+  --color-sucesso: var(--success);
+  --color-receita: var(--success);
+  --color-saldo-pos: var(--success);
+  --color-pago: var(--success);
+  --color-alerta: var(--warning);
+  --color-pendente: var(--warning);
+  --color-erro: var(--danger);
+  --color-danger: var(--danger);
+  --color-despesa: var(--danger);
+  --color-saldo-neg: var(--danger);
+  --color-atrasado: var(--danger);
+
+  --color-tick: var(--fg-subtle);
+  --color-label-muted: var(--fg-subtle);
+  --color-label-strong: var(--fg-muted);
+  --color-breadcrumb: var(--accent);
+  --color-breadcrumb-active: var(--fg);
+  --color-drill-hover: var(--accent-soft);
+  --color-drill-text: var(--fg);
+
+  --kpi-bg-green: var(--success-soft);
+  --kpi-bg-blue: var(--info-soft);
+  --kpi-bg-cyan: var(--info-soft);
+  --kpi-bg-amber: var(--warning-soft);
+  --kpi-bg-purple: var(--accent-soft);
+  --kpi-bg-rose: var(--danger-soft);
+  --kpi-bg-orange: var(--warning-soft);
+
+  /* Apelidos herdados desta base (mantidos apontando para os tokens novos) */
+  --bg-app: var(--bg);
+  --bg-surface: var(--bg-elevated);
+  --bg-hover: var(--surface-hover);
+  --bg-active: var(--surface-active);
+  --bg-muted: var(--surface-muted);
+  --border-light: var(--border-subtle);
+  --text-primary: var(--fg);
+  --text-secondary: var(--fg-muted);
+  --text-muted: var(--fg-subtle);
+  --text-heading: var(--fg);
+
+  --sidebar-bg: var(--bg-elevated);
+  --sidebar-border: var(--border);
+  --sidebar-item-active-bg: var(--accent-soft);
+  --sidebar-item-active-text: var(--accent);
+  --sidebar-item-hover-bg: var(--surface-hover);
+  --sidebar-divider-text: var(--fg-subtle);
+
+  --header-bg: var(--bg-elevated);
+  --header-border: var(--border-subtle);
+  --header-tint: var(--surface-muted);
+
+  --color-icon-bg: var(--surface-muted);
+  --color-icon-border: var(--border);
+  --color-icon-fg: var(--fg-muted);
+
+  /* Aviso: superficie quase neutra, significado na borda e no texto */
+  --color-warning-bg: var(--warning-soft);
+  --color-warning-border: color-mix(in srgb, var(--warning) 35%, transparent);
+  --color-warning-text: var(--warning);
+  --color-warning-icon: var(--warning);
+  --color-alerta-bg: var(--warning-soft);
+  --color-alerta-border: color-mix(in srgb, var(--warning) 35%, transparent);
+  --color-alerta-text: var(--warning);
+  --color-alerta-icon: var(--warning);
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-modal: var(--shadow-pop);
+  --overlay: var(--bg-overlay);
+  --grid-line: var(--border-subtle);
+
+  --scrollbar-thumb: var(--border-strong);
+  --scrollbar-hover: var(--fg-subtle);
+
+  --input-bg: var(--bg-elevated);
+  --input-border: var(--border);
+  --input-focus-ring: var(--ring);
+  --input-focus-border: var(--accent);
+  --input-disabled-bg: var(--surface-muted);
+  --input-placeholder: var(--fg-subtle);
+  --input-label: var(--fg-muted);
+
+  --badge-neutral-bg: var(--surface-muted);
+  --badge-neutral-text: var(--fg-muted);
+  --badge-neutral-border: transparent;
+
+  --toast-bg: var(--bg-elevated);
+  --toast-close-hover: var(--surface-hover);
+  --confirm-icon-bg: var(--danger-soft);
+
+  --row-alt: var(--surface-muted);
+  --row-hover: var(--surface-hover);
+  --row-highlight-green: var(--success-soft);
+  --row-accent-blue: var(--info-soft);
+
+  /* Chat IA — largura do popup flutuante. O min() garante que em tela
+     estreita o popup encolhe em vez de estourar a viewport. */
+  --chat-popup-width: min(480px, calc(100vw - 32px));
+
+  /* Handsontable — derivado dos tokens do sistema */
+  --ht-selection: var(--accent);
+  --ht-header-bg: var(--surface-muted);
+  --ht-header-text: var(--fg-subtle);
+  --ht-editable-bg: var(--accent-soft);
+  --formula-cell-bg: var(--info-soft);
+  --formula-cell-text: var(--info);
+  --formula-account-bg: var(--accent-soft);
+  --formula-account-text: var(--accent);
+  --formula-account-border: var(--accent-border);
+  --custom-input-label: var(--fg-muted);
+  --ht-orcado-bg: var(--surface-muted);
+  --ht-orcado-text: var(--fg);
+  --ht-subtotal-bg: var(--surface-muted);
+  --ht-subtotal-text: var(--fg);
+  --ht-highlight-bg: var(--surface-active);
+  --ht-cell-bg: var(--bg-elevated);
+  --ht-cell-text: var(--fg);
+  --ht-border: var(--border);
+  --realized-lock-bg: var(--surface-muted);
+  --realized-lock-text: var(--fg-subtle);
+
+  --ht-color-gray-300: var(--border);
+  --ht-color-gray-250: var(--border);
+  --ht-common-border: var(--border);
+  --ht-border-color: var(--border);
+  --ht-cell-horizontal-border-color: var(--border-subtle);
+  --ht-cell-vertical-border-color: var(--border-subtle);
+  --ht-wrapper-border-color: var(--border);
+  --ht-wrapper-border-width: 0;
+  --ht-header-active-border-color: var(--border);
+}
+
+/* ═══ Tokens como utilitarias Tailwind: bg-accent, text-fg-muted, … ═══ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-subtle: var(--border-subtle);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-disabled: var(--fg-disabled);
+  --color-fg-inverted: var(--fg-inverted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-hover: var(--accent-soft-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-border: var(--accent-border);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-ring: var(--ring);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 28px;
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-pop: var(--shadow-pop);
+  --font-sans: "Geist Sans", "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ═══ Base do design system ═══ */
+/* Cursor diz o que e' clicavel; desabilitado mostra not-allowed. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[role="switch"]:not(:disabled),
+[role="checkbox"]:not(:disabled),
+[role="tab"], a[href],
+select:not(:disabled), summary, label[for] { cursor: pointer; }
+button:disabled, select:disabled,
+[role="switch"]:disabled, [role="checkbox"]:disabled { cursor: not-allowed; }
+
+svg.lucide { stroke-width: 1.75px; }
+
+::selection { background-color: var(--accent-soft-hover); }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+input:focus-visible, textarea:focus-visible,
+select:focus-visible, [role="combobox"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 5px var(--ring);
+  border-color: var(--accent) !important;
+}
+
+/* ═══ Pecas do design system ═══ */
+.cartao {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--raio-cartao);
+  box-shadow: var(--shadow-sm);
+}
+.cartao-vivo { transition: border-color .2s, box-shadow .25s, transform .2s; }
+.cartao-vivo:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 1px var(--accent-border),
+              0 12px 32px -12px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.nav-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: var(--altura-controle); padding: 0 10px;
+  border-radius: var(--raio-controle); font-size: 14px;
+  color: var(--fg-muted);
+  transition: background-color .15s, color .15s;
+  white-space: nowrap; min-width: 0;
+}
+.nav-item:hover { background-color: var(--surface-hover); color: var(--fg); }
+.nav-item[data-active="true"] { background-color: var(--accent-soft); color: var(--accent); }
+.nav-item[data-active="true"]:hover { background-color: var(--accent-soft-hover); }
+.nav-icone { width: 36px; padding: 0; justify-content: center; }
+
+.popover {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-pop);
+}
+.popover-item {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 8px 12px; font-size: 13px; text-align: left;
+  color: var(--fg); transition: background-color .12s;
+}
+.popover-item:hover { background-color: var(--surface-hover); }
+
+.rotulo-secao {
+  font-size: 12px; font-weight: 500; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--fg-subtle);
+}
+
+.pilula {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 9px; border-radius: 9999px;
+  font-size: 12px; font-weight: 500;
+  background-color: var(--surface-muted); color: var(--fg-muted);
+}
+.pilula-acento { background-color: var(--accent-soft); color: var(--accent); }
+
+.tabela { width: 100%; font-size: 14px; border-collapse: collapse; }
+.tabela thead th {
+  text-align: left; font-size: 12px; font-weight: 500;
+  color: var(--fg-subtle); padding: 10px 16px;
+  background-color: color-mix(in srgb, var(--surface-muted) 60%, transparent);
+  border-bottom: 1px solid var(--border-subtle); white-space: nowrap;
+}
+.tabela tbody td { padding: 12px 16px; border-top: 1px solid var(--border-subtle); vertical-align: middle; }
+.tabela tbody tr { transition: background-color .12s; }
+.tabela tbody tr:hover { background-color: var(--surface-hover); }
+
+.controle {
+  height: var(--altura-controle); padding: 0 12px;
+  border-radius: var(--raio-controle); font-size: 14px;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border); color: var(--fg);
+  transition: border-color .15s, box-shadow .15s;
+}
+.controle::placeholder { color: var(--fg-subtle); }
+.controle-com-icone { padding-left: 36px; }
+.controle:hover { border-color: var(--border-strong); }
+.controle:disabled { opacity: .5; }
+/* Fix Tailwind 4 border-color defaulting to currentColor (black) */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Trava a largura do app — quando o chat IA da plataforma abre como
+   sidebar, o widget tenta redimensionar o #root (empurrando/encolhendo o
+   app). Com width: 100% !important, o app fica fixo e o chat se SOBREPÕE
+   em vez de empurrar. Nao mexer — sem isso o app volta a redimensionar
+   quando o chat abre. */
+div#root {
+  width: 100% !important;
+}
+
+html { background-color: var(--bg); }
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: "Geist Sans", "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global select styling — shadcn-like appearance */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--color-text);
+  border-radius: var(--raio-controle);
+  padding: 0 2rem 0 0.75rem;
+  height: var(--altura-controle);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 16px;
+}
+select:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 2px var(--input-focus-ring);
+}
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: var(--input-disabled-bg);
+}
+
+/* Scrollbar — 8px, polegar com 2px de "borda" transparente */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background-color: transparent; }
+::-webkit-scrollbar-thumb {
+  background-color: var(--border-strong); border-radius: 9999px;
+  border: 2px solid transparent; background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--fg-subtle); }
+
+/* ═══ Movimento — entradas curtas, ease-out ═══ */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes riseIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fadeIn { animation: fadeIn 0.2s ease-out; }
+.animate-scaleIn { animation: scaleIn 0.18s ease-out; }
+.animate-slideIn { animation: slideIn 0.3s ease-out; }
+.animate-slideInLeft { animation: slideInLeft 0.3s ease-out; }
+.animate-riseIn { animation: riseIn 0.25s ease-out; }
+.animate-slideUp { animation: slideUp 0.25s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadeIn, .animate-scaleIn, .animate-slideIn,
+  .animate-slideInLeft, .animate-riseIn, .animate-slideUp { animation: none; }
+}
+
+/* ─── DRE Table ────────────────────────────────────────────────── */
+:root {
+  /* Cinzas do DRE na familia FRIA (mesma do ink #0E1428 usado nos subtotais):
+     azul sobe, vermelho desce, luminancia preservada — a tabela nao clareia
+     nem escurece, so perde o tom neutro/quente que destoava das manchas. */
+  --dre-sub-bg: #f6f9fd;
+  --dre-sub-border: #e5ebf4;
+  --dre-hl-bg: #f2f6fc;
+  --dre-var-pos: #16a34a;
+  --dre-var-neg: #be123c;
+  --kpi-icon: var(--color-primary);
+  --dre-border: #edf1f7;
+  --dre-hover: #f6f9fe;
+  --dre-month-sep: #dde4ef;
+  /* Linhas da tabela: o cinza mais neutro que sobrava vinha de --color-border
+     (zinc, do chrome do app). Aqui ele e frio, sem mexer no resto do sistema. */
+  --dre-line: #dfe4ec;
+}
+.dark {
+  --dre-sub-bg: #181a22;
+  --dre-sub-border: #262a34;
+  --dre-hl-bg: #181a22;
+  --dre-var-pos: #4ade80;
+  --dre-var-neg: #fb7185;
+  --kpi-icon: color-mix(in srgb, var(--color-primary) 88%, white);
+  --dre-border: #1c1e26;
+  --dre-hover: #16181f;
+  --dre-month-sep: #262a34;
+  --dre-line: #242832;
+}
+/* Cinzas do DRE: subtotais em cinza bem leve com gradiente da esquerda pra
+   direita, e a coluna em destaque com fundo proprio — "Versao atual" no card do
+   Dashboard e "Orcado + realizado" no DRE Mensal (mesmo cinza nos dois). */
+:root {
+  --dash-dre-sub-grad: linear-gradient(90deg, rgba(14, 20, 40, 0.045) 0%, rgba(14, 20, 40, 0.01) 100%);
+  --dre-sub-grad: linear-gradient(90deg, rgba(14, 20, 40, 0.012) 0%, rgba(14, 20, 40, 0.055) 100%);
+  --dash-dre-sub-border: rgba(14, 20, 40, 0.06);
+  --dash-card-border: rgba(14, 20, 40, 0.11);
+  /* Coluna "Versao atual": mesmo cinza neutro dos totais (nao usa a cor primaria) */
+  --dash-dre-atual-bg: rgba(14, 20, 40, 0.02);
+  --dash-dre-atual-bg-sub: rgba(14, 20, 40, 0.04);
+}
+.dark {
+  --dash-dre-sub-grad: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.012) 100%);
+  --dre-sub-grad: linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0%, rgba(255, 255, 255, 0.06) 100%);
+  --dash-dre-sub-border: rgba(255, 255, 255, 0.06);
+  --dash-card-border: rgba(255, 255, 255, 0.11);
+  --dash-dre-atual-bg: rgba(255, 255, 255, 0.025);
+  --dash-dre-atual-bg-sub: rgba(255, 255, 255, 0.045);
+}
+.dre-table { border-collapse: separate; border-spacing: 0; font-size: 12px; }
+.dre-table .dre-th {
+  padding: 10px 10px; text-align: right; font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--color-text-secondary); border-bottom: 1px solid var(--dre-line);
+  white-space: nowrap; background-color: var(--color-surface);
+}
+.dre-table .dre-th-label { text-align: left; min-width: 220px; padding-left: 24px; }
+.dre-table .dre-th-month { text-align: center; border-bottom: 1px solid var(--dre-line); }
+.dre-table .dre-th-total { border-left: 1.5px solid var(--dre-line); }
+.dre-table .dre-th-var { min-width: 60px; }
+/* Month group separator — last column of each month block */
+.dre-table .dre-th-month-sep { border-right: 1.5px solid var(--dre-line); }
+.dre-table .dre-th-sub {
+  padding: 4px 10px; text-align: center; font-size: 10px; font-weight: 500;
+  color: var(--color-text-muted); border-bottom: 1px solid var(--dre-line);
+  white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em;
+  background-color: var(--color-surface);
+}
+.dre-table .dre-th-sub-real { color: var(--color-text-muted); opacity: 0.7; }
+.dre-table .dre-th-sub-sep { border-right: 1.5px solid var(--dre-line); }
+.dre-table .dre-cell {
+  padding: 8px 10px; text-align: right; white-space: nowrap;
+  border-top: none; font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+.dre-table .dre-cell.dre-real { color: var(--color-text-muted); font-size: 11.5px; }
+.dre-table .dre-cell.dre-total { border-left: 1px solid var(--dash-dre-sub-border); font-weight: 600; }
+.dre-table .dre-cell.dre-varcol { font-size: 11px; min-width: 60px; text-align: center; }
+.dre-table .dre-cell.dre-month-sep { border-right: 1px solid var(--dash-dre-sub-border); }
+.dre-table .dre-val { line-height: 1.3; }
+.dre-table .dre-var { font-size: 10px; line-height: 1; margin-top: 1px; font-weight: 500; }
+.dre-table .dre-label {
+  padding: 8px 12px 8px 24px; text-align: left; white-space: nowrap;
+  border-top: none;
+  color: var(--color-text); font-size: 12px;
+}
+/* Coluna congelada sempre opaca — no scroll lateral os valores passariam por tras.
+   O ::after faz o encontro com as colunas dos meses virar um degrade imperceptivel. */
+.dre-table .dre-label { background-color: var(--color-surface); position: relative; }
+.dre-table .dre-label::after {
+  content: ''; position: absolute; left: 100%; top: 0; bottom: 0; width: 28px;
+  background: linear-gradient(90deg, var(--color-surface) 0%, transparent 100%);
+  pointer-events: none;
+}
+/* Subtotal rows — mesmo gradiente/cinza leve do DRE do dashboard */
+.dre-table .dre-row-sub { background-image: var(--dre-sub-grad); }
+.dre-table .dre-row-sub .dre-cell {
+  background-color: transparent !important;
+}
+.dre-table .dre-row-sub .dre-label {
+  background-color: var(--color-surface) !important;
+  background-image: none;
+}
+.dre-table .dre-row-sub .dre-cell,
+.dre-table .dre-row-sub .dre-label {
+  font-weight: 600; color: var(--color-text);
+  border-top: 1px solid var(--dash-dre-sub-border);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+/* Highlighted rows (key lines) — barely tinted */
+.dre-table .dre-row-hl .dre-cell,
+.dre-table .dre-row-hl .dre-label {
+  background-color: var(--dre-hl-bg) !important;
+  font-weight: 600; font-size: 12px;
+}
+.dre-table .dre-row-hl.dre-row-sub .dre-cell {
+  background-color: transparent !important;
+}
+.dre-table .dre-row-hl.dre-row-sub .dre-label {
+  background-color: var(--color-surface) !important;
+  background-image: none;
+}
+.dre-table .dre-row-hl.dre-row-sub .dre-cell,
+.dre-table .dre-row-hl.dre-row-sub .dre-label {
+  font-weight: 600; font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+/* Coluna em destaque ("Orçado + realizado") — mesmo cinza da coluna "Versão
+   atual" do DRE do dashboard. As regras de linha (subtotal/destaque) usam
+   !important, entao a coluna precisa de especificidade maior para sobreviver a
+   elas — nesses casos usa o tom mais forte, como no dashboard. Fica ANTES do
+   :hover da linha de proposito: no hover, quem manda e o realce da linha. */
+.dre-table .dre-cell.dre-col-atual { background-color: var(--dash-dre-atual-bg) !important; }
+.dre-table .dre-row-sub .dre-cell.dre-col-atual,
+.dre-table .dre-row-hl .dre-cell.dre-col-atual,
+.dre-table .dre-row-hl.dre-row-sub .dre-cell.dre-col-atual {
+  background-color: var(--dash-dre-atual-bg-sub) !important;
+}
+/* O cabecalho e sticky: o cinza entra como camada sobre o fundo opaco, senao a
+   grade passaria por tras da coluna no scroll vertical. */
+.dre-table .dre-th-sub.dre-col-atual {
+  background-color: var(--color-surface);
+  background-image: linear-gradient(var(--dash-dre-atual-bg), var(--dash-dre-atual-bg));
+}
+
+/* Linhas filhas — abertura por conta contabil inline, abaixo do rotulo */
+.dre-table .dre-row-child .dre-cell,
+.dre-table .dre-row-child .dre-label {
+  font-size: 11px; color: var(--color-text-secondary);
+}
+.dre-table .dre-row-child .dre-label { padding-left: 44px; }
+
+/* Filtros e seletores da tela DRE — sem moldura, so fundo cinza discreto */
+.dre-filters input {
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--dash-dre-sub-border) !important;
+  box-shadow: none !important;
+}
+.dre-filters select,
+.dre-filters button {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background-color: var(--dash-dre-atual-bg) !important;
+}
+.dre-filters .absolute input,
+.dre-filters .absolute button {
+  background-color: transparent !important;
+  border-color: var(--dre-line) !important;
+}
+
+/* Drillable rows */
+.dre-table .dre-row-drill { cursor: pointer; }
+.dre-table .dre-row-drill:hover .dre-cell,
+.dre-table .dre-row-drill:hover .dre-label { background-color: var(--dre-hover) !important; }
+
+/* Botao "Detalhar por..." da linha do DRE: discreto por padrao, aparece quando
+   o cursor entra na linha (ou com foco pelo teclado). Sem ele o drill so
+   existia no botao direito — e ninguem descobre um menu invisivel. */
+.dre-table .dre-drill-btn {
+  opacity: 0;
+  transition: opacity .12s, color .12s;
+}
+.dre-table tr:hover .dre-drill-btn,
+.dre-table .dre-drill-btn:focus-visible { opacity: 1; }
+.dre-table .dre-drill-btn:hover { color: var(--accent) !important; }
+.dre-table-wrap { overflow: hidden; }
+/* DRE filter bar compact */
+.dre-filter-select {
+  height: 32px; padding: 0 28px 0 10px; font-size: 12px;
+  border-radius: 8px; border: 1px solid var(--color-border);
+  background-color: var(--color-surface); color: var(--color-text);
+  appearance: none; outline: none; transition: border-color 0.15s;
+  background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2394a3b8%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat; background-position: right 8px center; background-size: 14px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.dre-filter-select:focus { border-color: var(--color-primary); }
+
+/* Recharts */
+.recharts-wrapper svg, .recharts-wrapper svg:focus,
+.recharts-wrapper:focus, .recharts-surface:focus { outline: none !important; }
+.recharts-cartesian-grid line { stroke: var(--grid-line); }
+
+/* ─── Handsontable theming ──────────────────────────────────────── */
+/* Fix Tailwind 4 "border: 0 solid" reset → currentColor (black) leaks into HT cells */
+.handsontable,
+.handsontable *,
+.handsontable *::before,
+.handsontable *::after {
+  border-color: var(--ht-border) !important;
+}
+.handsontable td, .handsontable th {
+  white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;
+}
+.handsontable,
+.handsontable table,
+.handsontable table.htCore,
+.handsontable .wtHolder,
+.handsontable .wtHider,
+.handsontable .ht_master,
+.handsontable .ht_clone_top,
+.handsontable .ht_clone_left,
+.handsontable .ht_clone_top_left_corner,
+.handsontable .ht_clone_bottom,
+.handsontable .ht_clone_bottom_left_corner {
+  background-color: var(--ht-cell-bg) !important;
+}
+.handsontable td,
+.ht-theme-main.handsontable td {
+  background-color: var(--ht-cell-bg) !important;
+  color: var(--ht-cell-text) !important;
+  border-color: var(--ht-border) !important;
+}
+.handsontable th,
+.ht-theme-main.handsontable th {
+  font-size: 11px !important; letter-spacing: 0.025em !important;
+  text-transform: uppercase !important; font-weight: 600 !important;
+  color: var(--ht-header-text) !important;
+  background-color: var(--ht-header-bg) !important;
+  border-color: var(--ht-border) !important;
+}
+.handsontable td.ht-editable,
+.ht-theme-main.handsontable td.ht-editable { background-color: var(--ht-editable-bg) !important; }
+.handsontable td.formula-cell,
+.ht-theme-main.handsontable td.formula-cell { background-color: var(--formula-cell-bg, #eff6ff) !important; color: var(--formula-cell-text, #1e40af) !important; font-style: italic; }
+/* Formula account rows — calculated result, green tint */
+.handsontable td.ht-formula-account,
+.ht-theme-main.handsontable td.ht-formula-account {
+  background-color: var(--formula-account-bg) !important;
+  color: var(--formula-account-text) !important;
+  font-weight: 500 !important;
+  cursor: default !important;
+}
+.handsontable td.ht-formula-account-label,
+.ht-theme-main.handsontable td.ht-formula-account-label {
+  background-color: var(--formula-account-bg) !important;
+  color: var(--formula-account-text) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  cursor: default !important;
+  border-left: 3px solid var(--formula-account-border) !important;
+}
+/* Custom INPUT rows — same as editable but with indented label */
+.handsontable td.ht-custom-input,
+.ht-theme-main.handsontable td.ht-custom-input {
+  background-color: var(--bg-surface) !important;
+  color: var(--ht-cell-text) !important;
+  cursor: text !important;
+}
+.handsontable td.ht-custom-input:hover { background-color: var(--row-hover) !important; }
+.handsontable tr:nth-child(even) td.ht-custom-input { background-color: var(--row-alt) !important; }
+.handsontable tr:nth-child(even) td.ht-custom-input:hover { background-color: var(--row-hover) !important; }
+.handsontable td.ht-custom-input-label,
+.ht-theme-main.handsontable td.ht-custom-input-label {
+  background-color: var(--bg-surface) !important;
+  color: var(--custom-input-label) !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  cursor: default !important;
+  padding-left: 24px !important;
+}
+.handsontable tr:nth-child(even) td.ht-custom-input-label { background-color: var(--row-alt) !important; }
+/* Realized/locked cells — subtle locked appearance */
+.handsontable td.ht-realized-lock,
+.ht-theme-main.handsontable td.ht-realized-lock {
+  background-color: transparent !important;
+  color: var(--color-text-secondary) !important;
+  cursor: default !important;
+}
+.handsontable td.ht-readonly,
+.ht-theme-main.handsontable td.ht-readonly { color: var(--ht-header-text, #71717a) !important; }
+/* Base Zero — embedded style (no inner container) */
+.handsontable.ht-bz-embedded,
+.ht-theme-main.handsontable.ht-bz-embedded {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.handsontable.ht-bz-embedded .ht_master .wtHolder {
+  border: none !important;
+}
+/* Scrollbar fino dentro do Handsontable (target generico em todas as variantes / clones / spreader) */
+.handsontable .wtHolder,
+.handsontable .ht_master .wtHolder,
+.handsontable .ht_clone_top .wtHolder,
+.handsontable .ht_clone_left .wtHolder,
+.handsontable .ht_clone_top_left_corner .wtHolder,
+.handsontable .wtSpreader {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--scrollbar-thumb) transparent !important;
+}
+.handsontable .wtHolder::-webkit-scrollbar,
+.handsontable .ht_master .wtHolder::-webkit-scrollbar,
+.handsontable .ht_clone_top .wtHolder::-webkit-scrollbar,
+.handsontable .ht_clone_left .wtHolder::-webkit-scrollbar,
+.handsontable .wtSpreader::-webkit-scrollbar { width: 6px !important; height: 6px !important; }
+.handsontable .wtHolder::-webkit-scrollbar-track,
+.handsontable .ht_master .wtHolder::-webkit-scrollbar-track,
+.handsontable .wtSpreader::-webkit-scrollbar-track { background: transparent !important; }
+.handsontable .wtHolder::-webkit-scrollbar-thumb,
+.handsontable .ht_master .wtHolder::-webkit-scrollbar-thumb,
+.handsontable .wtSpreader::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb) !important; border-radius: 9999px !important; }
+.handsontable .wtHolder::-webkit-scrollbar-thumb:hover,
+.handsontable .ht_master .wtHolder::-webkit-scrollbar-thumb:hover,
+.handsontable .wtSpreader::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover) !important; }
+.handsontable .wtHolder::-webkit-scrollbar-button,
+.handsontable .ht_master .wtHolder::-webkit-scrollbar-button,
+.handsontable .wtSpreader::-webkit-scrollbar-button { display: none !important; width: 0 !important; height: 0 !important; }
+.handsontable .wtHolder::-webkit-scrollbar-corner { background: transparent !important; }
+/* Base Zero — cells */
+.handsontable td.ht-bz-editable,
+.ht-theme-main.handsontable td.ht-bz-editable {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text-secondary) !important;
+  cursor: text !important;
+}
+.handsontable td.ht-bz-editable:hover { background-color: var(--row-hover) !important; }
+.handsontable td.ht-bz-readonly,
+.ht-theme-main.handsontable td.ht-bz-readonly {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text-secondary) !important;
+  cursor: default !important;
+}
+/* Base Zero — zebra striping */
+.handsontable.ht-bz-table tr:nth-child(even) td.ht-bz-editable,
+.handsontable.ht-bz-table tr:nth-child(even) td.ht-bz-readonly,
+.handsontable.ht-bz-table tr:nth-child(even) td.ht-bz-account,
+.handsontable.ht-bz-table tr:nth-child(even) td.ht-bz-total,
+.handsontable.ht-bz-table tr:nth-child(even) td.ht-realized-lock {
+  background-color: var(--row-alt) !important;
+}
+/* Base Zero — account column (first col) */
+.handsontable td.ht-bz-account,
+.ht-theme-main.handsontable td.ht-bz-account {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  font-weight: 400 !important;
+  font-size: 13px !important;
+  cursor: default !important;
+}
+/* Base Zero — total column */
+.handsontable td.ht-bz-total,
+.ht-theme-main.handsontable td.ht-bz-total {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  font-weight: 600 !important;
+  cursor: default !important;
+}
+/* Base Zero — totalizer row */
+.handsontable td.ht-bz-totalizer,
+.ht-theme-main.handsontable td.ht-bz-totalizer {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  font-weight: 600 !important;
+  border-top: 1px solid var(--color-border) !important;
+  cursor: default !important;
+}
+/* Base Zero — header: matches DRE Consolidado thead */
+.handsontable.ht-bz-table th,
+.ht-theme-main.handsontable.ht-bz-table th {
+  background-color: var(--color-surface) !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.05em !important;
+  color: var(--color-text-secondary) !important;
+  border-bottom: none !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  box-shadow: 0 1px 0 0 var(--color-border) !important;
+}
+/* Base Zero — clean grid: only horizontal border-top per row, no vertical lines */
+.handsontable.ht-bz-table td,
+.ht-theme-main.handsontable.ht-bz-table td {
+  border-top: 1px solid var(--color-border) !important;
+  border-bottom: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  font-feature-settings: "tnum" !important;
+}
+/* Base Zero — no vertical separator on embedded first col */
+.handsontable.ht-bz-embedded td:first-child,
+.handsontable.ht-bz-embedded th:first-child {
+  border-right: none !important;
+}
+/* Base Zero — focus/selection subtle blue */
+.handsontable.ht-bz-table td.current::before { background-color: #3B82F6 !important; opacity: 0.06 !important; }
+.handsontable.ht-bz-table td.area::before { background-color: #3B82F6 !important; opacity: 0.08 !important; }
+.handsontable.ht-bz-table .wtBorder { background-color: #3B82F6 !important; opacity: 0.5 !important; }
+/* ─── Grade de modelo orcamentario (Conta | Jan..Dez | Total) ───── */
+/* A grade e uma familia so: mesma matiz do fundo quase branco ate o acento.
+   Para deixar "mais sutil sem mudar o tom", o que se mexe e o CROMA, nunca a
+   matiz — os valores sairam do original multiplicando o croma por 0.72 e
+   mantendo H. Quem for reafinar: refaca a conta em OKLCH, nao escolha hex no
+   olho, senao a familia perde a unidade.
+
+   O ACENTO (--model-formula-bar: icone de formula, barra da linha, borda de
+   selecao) foi reancorado na matiz do roxo da plataforma (293), mantendo L e C
+   exatos — a suavidade continua a mesma, so deixou de ser um azul sem origem.
+   Sem isso a tela ficaria com dois acentos a 30 graus de distancia: roxo no
+   grafico, azul na selecao da tabela logo acima.
+
+   Os fundos seguem na matiz antiga (~257) de proposito: estao entre C=0.006 e
+   C=0.025, ou seja, cinza na pratica — reancorar ali mudaria 6 telas sem
+   diferenca visivel. */
+:root {
+  --model-grid-border:  #e8edf3;  /* linhas da grade */
+  --model-actual-text:  #334155;  /* texto dos meses Realizados */
+  --model-budget-bg:    #f6f9fd;  /* fundo dos meses Orcados (editavel) */
+  --model-budget-hover: #ecf2fb;  /* hover da celula editavel */
+  --model-divider:      #dbe6f6;  /* linha vertical Realizado | Orcado */
+  --model-formula-bg:   #f2f7fe;  /* fundo da linha de formula */
+  --model-formula-bar:  #846ecb;  /* acento: barra, icones, selecao */
+  --model-premise-line: #e1eaf9;  /* conector vertical da premissa */
+  --model-total-bg:     #f8fafc;  /* fundo da linha de Total */
+
+  /* Barras do grafico de comparacao: azul para o que ja aconteceu, roxo (o
+     --color-primary da plataforma) para o que se esta orcando.
+
+     As tres sao SOLIDAS, e isso e o ponto. A versao anterior deixava duas delas
+     em C=0.04 — cinza na pratica — apostando que so o acento deveria ter cor.
+     Num grafico de 3 series isso nao funciona: com dois tercos da tela em cinza,
+     o conjunto le como apagado por mais croma que se ponha na terceira.
+     Croma aqui: 0.143 / 0.215 / 0.219. Antes: 0.041 / 0.040 / 0.219.
+
+     Os dois realizados dividem a MATIZ azul e se separam pela luminosidade
+     (0.714 contra 0.546) — o ano anterior e o mesmo azul, mais claro, porque e
+     a mesma natureza de dado, so que mais velho. O roxo marca a unica serie de
+     natureza diferente: a que ainda da para mudar.
+
+     Quem for reafinar: refaca a conta em OKLCH, nao escolha hex no olho. */
+  --chart-real-anterior: #60a5fa;
+  --chart-realizado:     #2563eb;
+  --chart-projetado:     var(--color-primary);
+}
+.dark {
+  --model-grid-border:  #26262e;
+  --model-actual-text:  #cbd5e1;
+  --model-budget-bg:    #141a23;
+  --model-budget-hover: #192230;
+  --model-divider:      #283852;
+  --model-formula-bg:   #141c28;
+  --model-formula-bar:  #8671c5;
+  --model-premise-line: #212e43;
+  --model-total-bg:     #17171c;
+
+  /* No escuro o azul do realizado precisa CLAREAR para nao sumir no fundo
+     (blue-600 tem L=0.546 e afunda). O roxo continua sendo o --color-primary,
+     que o tema escuro ja redefine sozinho para #a78bfa. */
+  --chart-real-anterior: #93c5fd;
+  --chart-realizado:     #3b82f6;
+  --chart-projetado:     var(--color-primary);
+}
+
+/* Grade: horizontais por border-top, verticais por inset shadow.
+   CRITICO: borda lateral soma largura real a cada celula; com 14 colunas a
+   largura renderizada diverge da que a Walkontable calculou e o scroll
+   horizontal passa a ser puxado de volta. box-shadow pinta sem ocupar layout. */
+.handsontable.ht-model-grid td,
+.ht-theme-main.handsontable.ht-model-grid td {
+  border-top: 1px solid var(--model-grid-border) !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  box-shadow: inset -1px 0 0 0 var(--model-grid-border);
+  vertical-align: middle !important;
+  padding: 0 10px !important;
+  font-size: 12px !important;
+  font-variant-numeric: tabular-nums !important;
+  font-feature-settings: "tnum" !important;
+}
+.handsontable.ht-model-grid th,
+.ht-theme-main.handsontable.ht-model-grid th {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text-secondary) !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  border: none !important;
+  box-shadow: inset -1px 0 0 0 var(--model-grid-border),
+              inset 0 -1px 0 0 var(--model-grid-border) !important;
+  padding: 0 10px !important;
+}
+/* 1a linha do thead = faixa de periodo: discreta, sem caixa alta e sem peso */
+.handsontable.ht-model-grid thead tr:first-child th,
+.ht-theme-main.handsontable.ht-model-grid thead tr:first-child th {
+  text-transform: none !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em !important;
+  color: var(--color-text-muted, var(--color-text-secondary)) !important;
+  opacity: 0.75;
+}
+/* Cabecalho da coluna de rotulo alinhado com o conteudo dela — que e texto a
+   esquerda, e nao numero centralizado como os meses. */
+.handsontable.ht-model-grid thead tr:last-child th:first-child,
+.ht-theme-main.handsontable.ht-model-grid thead tr:last-child th:first-child {
+  text-align: left !important;
+  padding-left: 12px !important;
+}
+
+/* Periodos */
+.handsontable.ht-model-grid td.period-actual { background-color: var(--color-surface) !important; color: var(--model-actual-text) !important; }
+.handsontable.ht-model-grid td.period-budget { background-color: var(--model-budget-bg) !important; color: var(--color-text) !important; }
+.handsontable.ht-model-grid th.period-actual-h { color: var(--model-actual-text) !important; }
+.handsontable.ht-model-grid th.period-budget-h { background-color: var(--model-budget-bg) !important; }
+/* Divisor Realizado | Orcado — 1px, atravessa header e corpo */
+.handsontable.ht-model-grid td.period-budget-start {
+  box-shadow: inset -1px 0 0 0 var(--model-grid-border),
+              inset 1px 0 0 0 var(--model-divider) !important;
+}
+.handsontable.ht-model-grid th.period-budget-start {
+  box-shadow: inset -1px 0 0 0 var(--model-grid-border),
+              inset 0 -1px 0 0 var(--model-grid-border),
+              inset 1px 0 0 0 var(--model-divider) !important;
+}
+
+/* Estados de celula */
+.handsontable.ht-model-grid td.cell-editable {
+  background-color: var(--model-budget-bg) !important;
+  color: var(--color-text) !important;
+  cursor: text !important;
+  text-decoration: none !important;
+}
+.handsontable.ht-model-grid td.cell-editable:hover { background-color: var(--model-budget-hover) !important; }
+/* Editavel DENTRO da faixa de Realizado — na pratica so linha de premissa, que
+   nao trava em mes fechado. Continua editavel, mas se veste de Realizado: azul
+   e a cor do Orcado, e usa-lo ali diria que o mes esta em aberto. */
+.handsontable.ht-model-grid td.period-actual.cell-editable {
+  background-color: var(--color-surface) !important;
+  color: var(--model-actual-text) !important;
+}
+.handsontable.ht-model-grid td.period-actual.cell-editable:hover {
+  background-color: color-mix(in srgb, var(--model-actual-text) 7%, transparent) !important;
+}
+.handsontable.ht-model-grid td.cell-locked {
+  background-color: var(--color-surface) !important;
+  color: var(--model-actual-text) !important;
+  cursor: default !important;
+  text-decoration: none !important;
+}
+.handsontable.ht-model-grid td.cell-calculated {
+  color: var(--color-text) !important;
+  font-weight: 600 !important;
+  cursor: default !important;
+  text-decoration: none !important;
+}
+
+/* Linhas */
+.handsontable.ht-model-grid td.row-formula { background-color: var(--model-formula-bg) !important; }
+.handsontable.ht-model-grid td.row-total,
+.ht-theme-main.handsontable.ht-model-grid td.row-total {
+  background-color: var(--model-total-bg) !important;
+  color: var(--color-text) !important;
+  font-weight: 600 !important;
+  border-top: 1px solid var(--color-border) !important;
+  text-decoration: none !important;
+}
+
+/* Primeira coluna: icone + nome numa UNICA caixa de linha.
+   Sem flex de proposito — o icone e conteudo inline DENTRO do span do nome. */
+.handsontable.ht-model-grid td.model-label-cell {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  position: relative !important;
+  text-align: left !important;
+  cursor: default !important;
+  text-decoration: none !important;
+  padding: 0 12px !important;
+}
+.ht-model-grid td.model-label-cell .model-label-name {
+  display: block;
+  font-size: 13px; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ht-model-grid td.model-label-cell .model-ico {
+  display: inline-block; vertical-align: middle;
+  margin-right: 8px;
+  color: var(--model-formula-bar);
+}
+.ht-model-grid td.model-label-cell .model-ico > svg { display: inline-block; vertical-align: middle; }
+.ht-model-grid td.model-label-cell .model-ico-formula {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px; font-weight: 700; font-style: italic;
+}
+/* Premissa — recuo + conector vertical */
+.handsontable.ht-model-grid td.row-premise.model-label-cell { padding-left: 28px !important; }
+.ht-model-grid td.row-premise.model-label-cell::before {
+  content: ''; position: absolute; left: 14px; top: 0; bottom: 0;
+  width: 2px; background: var(--model-premise-line);
+}
+/* Formula — barra de acento a esquerda + nome semibold */
+.handsontable.ht-model-grid td.row-formula.model-label-cell {
+  background-color: var(--model-formula-bg) !important;
+  box-shadow: inset -1px 0 0 0 var(--model-grid-border),
+              inset 3px 0 0 0 var(--model-formula-bar) !important;
+  padding-left: 16px !important;
+}
+.ht-model-grid td.row-formula.model-label-cell .model-label-name { font-weight: 600; }
+.handsontable.ht-model-grid td.row-total.model-label-cell { background-color: var(--model-total-bg) !important; }
+.ht-model-grid td.row-total.model-label-cell .model-label-name { font-weight: 600; }
+
+/* Selecao/foco: comportamento padrao do Handsontable, apenas suavizado */
+.handsontable.ht-model-grid td.current::before { background-color: var(--model-formula-bar) !important; opacity: 0.07 !important; }
+.handsontable.ht-model-grid td.area::before   { background-color: var(--model-formula-bar) !important; opacity: 0.09 !important; }
+.handsontable.ht-model-grid .wtBorder         { background-color: var(--model-formula-bar) !important; opacity: 0.55 !important; }
+
+/* ── Grade estilo planilha (experimento na aba Beneficios) ───────────
+   Ao contrario da .ht-bz-table, esta MANTEM as linhas verticais: a ideia e
+   justamente parecer planilha. As cores continuam saindo das variaveis do
+   app, entao a grade nao destoa do resto da tela. */
+.handsontable.ht-grade td,
+.ht-theme-main.handsontable.ht-grade td { font-size: 13px !important; }
+/* Coluna de identidade: so leitura, com o mesmo peso do nome nas outras abas. */
+.handsontable.ht-grade td.ht-grade-identidade,
+.ht-theme-main.handsontable.ht-grade td.ht-grade-identidade {
+  font-weight: 500 !important;
+  background-color: var(--ht-header-bg) !important;
+}
+/* Celula que nao vale para a linha (valor em R$ num beneficio percentual). */
+.handsontable.ht-grade td.ht-grade-na,
+.ht-theme-main.handsontable.ht-grade td.ht-grade-na {
+  color: var(--color-text-muted) !important;
+  background-color: var(--ht-header-bg) !important;
+}
+
+/* ===== Pessoal Projection Table ===== */
+.pessoal-proj-table { scrollbar-width: thin; }
+.pessoal-colab-row td { transition: background-color 0.12s ease; }
+.pessoal-colab-row:hover td { background-color: var(--bg-hover, #F8FAFC) !important; }
+.pessoal-sub-row td { transition: background-color 0.12s ease; border-bottom: none !important; }
+.pessoal-sub-row:hover td { background-color: var(--bg-hover, #F5F5F5) !important; }
+/* O Detalhe Mensal da base historica usava aqui um visual proprio (.ht-hist-*).
+   Ele agora usa o padrao de modelo (.ht-model-grid, mais acima) nos dois modos,
+   Orcado e Real+Orcado — as regras antigas sairam para nao descreverem uma tela
+   que nao existe mais. */
+
+/* Dark mode overrides — Base Zero now uses CSS variables, so most dark overrides are automatic.
+   Only keep overrides for zebra rows that need slightly different shading in dark. */
+.dark .handsontable tr:nth-child(even) td.ht-bz-editable { background-color: var(--bg-elevated) !important; }
+.dark .handsontable tr:nth-child(even) td.ht-bz-account { background-color: var(--bg-elevated) !important; }
+.dark .handsontable tr:nth-child(even) td.ht-bz-readonly { background-color: var(--bg-elevated) !important; }
+.handsontable td.ht-orcado,
+.ht-theme-main.handsontable td.ht-orcado { background-color: var(--ht-orcado-bg) !important; color: var(--ht-orcado-text) !important; }
+.handsontable td.ht-orcado-label,
+.ht-theme-main.handsontable td.ht-orcado-label { background-color: var(--ht-orcado-bg) !important; color: var(--ht-orcado-text) !important; font-weight: 500; }
+.handsontable td.ht-subtotal,
+.ht-theme-main.handsontable td.ht-subtotal { background-color: var(--ht-subtotal-bg) !important; color: var(--ht-subtotal-text) !important; font-weight: 700; }
+.handsontable td.ht-delta-pos,
+.ht-theme-main.handsontable td.ht-delta-pos { color: #16a34a !important; font-weight: 600; }
+.handsontable td.ht-delta-neg,
+.ht-theme-main.handsontable td.ht-delta-neg { color: #dc2626 !important; font-weight: 600; }
+.handsontable td.ht-real-col,
+.ht-theme-main.handsontable td.ht-real-col { color: var(--color-text-secondary) !important; font-size: 12px; }
+.handsontable td.cursor-pointer { cursor: pointer; }
+.handsontable td.cursor-pointer:hover { background-color: var(--bg-hover) !important; }
+.dark .handsontable td.ht-delta-pos { color: #4ade80 !important; }
+.dark .handsontable td.ht-delta-neg { color: #f87171 !important; }
+
+/* HT special rows in dark */
+.dark .handsontable td.bg-slate-50 { background-color: #18181b !important; color: #a1a1aa !important; }
+.dark .handsontable td.bg-slate-100,
+.dark .handsontable td.font-bold.bg-slate-100 { background-color: #1e1e22 !important; color: #e4e4e7 !important; }
+.dark .handsontable td.bg-indigo-50 { background-color: var(--ht-subtotal-bg) !important; color: var(--ht-subtotal-text) !important; }
+
+.handsontable .ht_clone_top, .handsontable .ht_clone_left,
+.handsontable .ht_clone_top_left_corner { z-index: 1 !important; }
+
+/* Selection */
+.handsontable td.area::before, .handsontable td.area-1::before,
+.handsontable td.area-2::before, .handsontable td.area-3::before,
+.handsontable td.area-4::before { background-color: var(--ht-selection) !important; opacity: 0.12 !important; }
+.handsontable td.current::before { background-color: var(--ht-selection) !important; opacity: 0.08 !important; }
+.handsontable .wtBorder { background-color: var(--ht-selection) !important; }
+.handsontable .wtBorder.corner { background-color: var(--ht-selection) !important; border: 1px solid var(--bg-surface); width: 6px !important; height: 6px !important; cursor: crosshair; }
+.handsontable th.ht__highlight { background-color: var(--ht-highlight-bg) !important; }
+.handsontable { border-radius: 0 !important; }
+
+/* Force ALL handsontable borders to use the theme border color — override default black/dark borders */
+.handsontable,
+.ht-theme-main.handsontable,
+.ht-theme-main.handsontable td,
+.ht-theme-main.handsontable th,
+.handsontable .htCore,
+.handsontable table.htCore {
+  border-color: var(--ht-border) !important;
+}
+.ht-theme-main.handsontable .ht_master .wtHolder,
+.ht-theme-main.handsontable .ht_clone_top .wtHolder,
+.ht-theme-main.handsontable .ht_clone_left .wtHolder {
+  border-color: var(--ht-border) !important;
+}
+.handsontable .wtSpreader {
+  border-color: var(--ht-border) !important;
+}
+/* Remove outer border that can appear as thick/black */
+.ht-theme-main.handsontable {
+  border: none !important;
+}
+/* Header bottom border */
+.ht-theme-main.handsontable thead tr th {
+  border-bottom-color: var(--ht-border) !important;
+  border-right-color: var(--ht-border) !important;
+}
+/* Fixed column separator */
+.handsontable .ht_clone_left td,
+.handsontable .ht_clone_left th,
+.handsontable .ht_clone_top_left_corner td,
+.handsontable .ht_clone_top_left_corner th {
+  border-color: var(--ht-border) !important;
+}
+/* Current cell border — use primary instead of default black */
+.ht-theme-main.handsontable td.current,
+.handsontable td.current {
+  outline-color: var(--color-primary) !important;
+}
+.ht-theme-main.handsontable .wtBorder.current {
+  background-color: var(--color-primary) !important;
+}
+/* Nuclear override — kill ALL possible black borders in Handsontable */
+.handsontable *,
+.ht-theme-main.handsontable *,
+.ht-theme-main.handsontable td,
+.ht-theme-main.handsontable th,
+.ht-theme-main.handsontable tr,
+.ht-theme-main.handsontable thead,
+.ht-theme-main.handsontable tbody,
+.ht-theme-main.handsontable table,
+.ht-theme-main.handsontable .htCore,
+.ht-theme-main.handsontable table.htCore,
+.ht-theme-main.handsontable .wtHolder,
+.ht-theme-main.handsontable .wtHider,
+.ht-theme-main.handsontable .wtSpreader {
+  border-color: var(--ht-border) !important;
+}
+.ht-theme-main.handsontable,
+.ht-theme-main.handsontable .ht_master,
+.ht-theme-main.handsontable .ht_clone_top,
+.ht-theme-main.handsontable .ht_clone_left {
+  border: none !important;
+  outline: none !important;
+}
+/* Override ht-theme-main CSS custom properties directly on the element */
+.ht-theme-main.handsontable,
+.handsontable {
+  --ht-color-gray-300: var(--ht-border);
+  --ht-color-gray-250: var(--ht-border);
+  --ht-common-border: var(--ht-border);
+  --ht-border-color: var(--ht-border);
+  --ht-cell-horizontal-border-color: var(--ht-border);
+  --ht-cell-vertical-border-color: var(--ht-border);
+  --ht-wrapper-border-color: transparent;
+  --ht-wrapper-border-width: 0;
+  --ht-header-active-border-color: var(--ht-border);
+  --ht-cell-editor-border-color: var(--color-primary);
+  border: none !important;
+  outline: none !important;
+}
+/* Kill the ::before pseudo-element overlay border (z-index: 999) */
+.handsontable.ht-wrapper::before,
+.ht-theme-main.handsontable.ht-wrapper::before {
+  border: none !important;
+  display: none !important;
+}
+/* Kill outer border on the main Handsontable container and all structural wrappers */
+.handsontable,
+.handsontable.ht-wrapper,
+.ht-theme-main.handsontable,
+.ht-theme-main.handsontable.ht-wrapper {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.handsontable > .ht_master > .wtHolder,
+.handsontable > .ht_clone_top > .wtHolder,
+.handsontable > .ht_clone_left > .wtHolder {
+  border: none !important;
+  outline: none !important;
+}
+
+/* ─── Global dark overrides for page-level Tailwind classes ───── */
+.dark .bg-slate-50\/80, .dark .bg-slate-50 { background-color: var(--bg-app) !important; }
+.dark .bg-white { background-color: var(--bg-surface) !important; }
+/* Tailwind text-slate → CSS variables (light + dark) */
+.text-slate-800, .text-slate-900, .text-slate-700 { color: var(--color-text) !important; }
+.text-slate-600 { color: var(--color-text-secondary) !important; }
+.text-slate-500 { color: var(--color-text-secondary) !important; }
+.text-slate-400, .text-slate-300 { color: var(--color-text-muted) !important; }
+.dark .border-slate-200, .dark .border-slate-200\/60, .dark .border-slate-200\/80 { border-color: var(--border) !important; }
+.dark .border-slate-100 { border-color: var(--border-light) !important; }
+.dark .border-slate-50 { border-color: var(--border-light) !important; }
+.dark .bg-slate-100 { background-color: var(--bg-hover) !important; }
+.dark .hover\:bg-slate-50:hover { background-color: var(--bg-hover) !important; }
+.dark .hover\:bg-slate-100:hover { background-color: var(--bg-elevated) !important; }
+.dark .hover\:text-slate-700:hover { color: var(--color-text) !important; }
+
+/* Dark: status card backgrounds */
+.dark .bg-sky-50\/50 { background-color: rgba(14, 116, 144, 0.08) !important; }
+.dark .bg-amber-50\/50 { background-color: rgba(245, 158, 11, 0.08) !important; }
+.dark .bg-teal-50\/50 { background-color: rgba(20, 184, 166, 0.08) !important; }
+.dark .bg-red-50\/50 { background-color: rgba(239, 68, 68, 0.08) !important; }
+.dark .bg-indigo-50\/50 { background-color: rgba(99, 102, 241, 0.08) !important; }
+.dark .bg-white\/60 { background-color: rgba(24, 24, 27, 0.6) !important; }
+.dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.1) !important; }
+.dark .bg-indigo-100 { background-color: rgba(99, 102, 241, 0.15) !important; }
+
+/* Dark: shadow resets */
+.dark .shadow-sm.shadow-slate-100 { box-shadow: none !important; }
+.dark .shadow-sm.shadow-indigo-200, .dark .shadow-sm.shadow-indigo-100 { box-shadow: none !important; }
+
+/* Dark: hover colors */
+.dark .hover\:bg-red-50:hover { background-color: rgba(239, 68, 68, 0.1) !important; }
+
+/* Dark: select/option native dropdown */
+.dark select option { background-color: var(--bg-elevated); color: var(--color-text); }
+
+/* Dark: focus ring offset */
+.dark .focus\:ring-offset-1 { --tw-ring-offset-color: var(--bg-surface); }
+
+/* Dark: colored backgrounds (KPIs, status chips, quick access) */
+.dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.1) !important; }
+.dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.15) !important; }
+.dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.1) !important; }
+.dark .bg-blue-100 { background-color: rgba(59, 130, 246, 0.15) !important; }
+.dark .bg-purple-50 { background-color: rgba(139, 92, 246, 0.1) !important; }
+.dark .bg-purple-100 { background-color: rgba(139, 92, 246, 0.15) !important; }
+.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.1) !important; }
+.dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.15) !important; }
+.dark .bg-red-50 { background-color: rgba(239, 68, 68, 0.1) !important; }
+.dark .bg-red-100 { background-color: rgba(239, 68, 68, 0.15) !important; }
+
+/* Dark: colored hover backgrounds */
+.dark .hover\:bg-emerald-100:hover { background-color: rgba(16, 185, 129, 0.2) !important; }
+.dark .hover\:bg-blue-100:hover { background-color: rgba(59, 130, 246, 0.2) !important; }
+.dark .hover\:bg-purple-100:hover { background-color: rgba(139, 92, 246, 0.2) !important; }
+.dark .hover\:bg-amber-100:hover { background-color: rgba(245, 158, 11, 0.2) !important; }
+.dark .hover\:bg-indigo-50:hover { background-color: rgba(99, 102, 241, 0.12) !important; }
+.dark .hover\:bg-slate-200:hover { background-color: var(--bg-hover) !important; }
+
+/* Dark: progress bar */
+.dark .bg-slate-200 { background-color: #27272a !important; }
+
+/* Dark: colored text */
+.dark .text-emerald-600 { color: #34d399 !important; }
+.dark .text-emerald-700 { color: #6ee7b7 !important; }
+.dark .text-blue-600 { color: #60a5fa !important; }
+.dark .text-blue-700 { color: #93bbfd !important; }
+.dark .text-purple-600 { color: #a78bfa !important; }
+.dark .text-purple-700 { color: #c4b5fd !important; }
+.dark .text-amber-600 { color: #fbbf24 !important; }
+.dark .text-amber-700 { color: #fcd34d !important; }
+.dark .text-red-600 { color: #f87171 !important; }
+.dark .text-red-700 { color: #fca5a5 !important; }
+.dark .text-indigo-600 { color: #a5b4fc !important; }
+.dark .text-indigo-500 { color: #818cf8 !important; }
+
+/* Dark: colored borders */
+.dark .border-emerald-200\/60 { border-color: rgba(16, 185, 129, 0.25) !important; }
+.dark .border-red-200\/60 { border-color: rgba(239, 68, 68, 0.25) !important; }
+.dark .border-amber-200\/60 { border-color: rgba(245, 158, 11, 0.25) !important; }
+.dark .border-indigo-200\/60 { border-color: rgba(99, 102, 241, 0.25) !important; }
+.dark .border-sky-200 { border-color: rgba(14, 165, 233, 0.25) !important; }
+.dark .border-amber-200 { border-color: rgba(245, 158, 11, 0.25) !important; }
+.dark .border-teal-200 { border-color: rgba(20, 184, 166, 0.25) !important; }
+.dark .border-red-200 { border-color: rgba(239, 68, 68, 0.25) !important; }
+.dark .border-emerald-200 { border-color: rgba(16, 185, 129, 0.25) !important; }
+.dark .border-indigo-200 { border-color: rgba(99, 102, 241, 0.25) !important; }
+.dark .hover\:border-indigo-200:hover { border-color: rgba(99, 102, 241, 0.4) !important; }
+
+/* Dark: Handsontable table element (extra specificity for ht-theme-main override) */
+.dark .handsontable table,
+.dark .handsontable table.htCore,
+.dark .ht-theme-main.handsontable td,
+.dark .ht-theme-main.handsontable th {
+  background-color: var(--ht-cell-bg) !important;
+  color: var(--ht-cell-text) !important;
+}
+.dark .ht-theme-main.handsontable th {
+  background-color: var(--ht-header-bg) !important;
+  color: var(--ht-header-text) !important;
+}
+
+/* Recharts dark overrides */
+.dark .recharts-default-tooltip {
+  background-color: var(--bg-elevated) !important;
+  border-color: var(--border) !important;
+  color: var(--color-text) !important;
+}
+.dark .recharts-tooltip-cursor,
+.dark .recharts-cursor,
+.dark .recharts-rectangle.recharts-tooltip-cursor {
+  fill: rgba(255, 255, 255, 0.06) !important;
+  stroke: var(--border) !important;
+}
+.dark .recharts-curve.recharts-tooltip-cursor {
+  stroke: var(--border) !important;
+}
+.dark .recharts-radial-bar-background-sector {
+  fill: var(--bg-hover) !important;
+}
+
+/* Drawers laterais (fixed right-0) recuam pra esquerda do chat quando ele
+   esta aberto — assim drawer + chat coexistem visualmente sem sobrepor.
+   8px de gap entre drawer e chat. Transicao suave junto com a abertura
+   do drawer. */
+.chat-aware-drawer {
+  transition: right 200ms ease-out;
+}
+body[data-chat-open="true"] .chat-aware-drawer {
+  right: calc(var(--chat-push, 0px) + 8px) !important;
+}
+
+/* Esconde scrollbar visual mantendo scroll funcional (mouse/touchpad).
+   Aplicado no <main> do Layout — a pessoa rola com o scroll do mouse
+   sem aquele tracinho cinza encostado no chat. */
+.scroll-hidden {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge antigo */
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari / Edge moderno */
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   Chat IA — Painel flutuante (popup arredondado)
+   Transforma o sidebar do chat de "tab encostada" em popup com cantos
+   arredondados, margem de 16px e shadow. Seletores defensivos (id/class
+   case-insensitive, contains) porque o DOM do widget pode mudar entre
+   versoes da plataforma. A classe .mitra-chat-detected eh adicionada
+   pelo Layout em runtime no sidebar real detectado por geometria (fixed
+   ancorado a direita, altura quase total) — eh o fallback que SEMPRE
+   pega, mesmo se a plataforma renomear tudo.
+   ────────────────────────────────────────────────────────────────────── */
+[id*="mitra-chat" i], [class*="mitra-chat" i], [data-mitra-chat],
+[id*="chat-panel" i], [id*="chat-sidebar" i],
+[class*="chat-panel" i], [class*="chat-sidebar" i],
+[id*="agent" i][class*="sidebar" i],
+[class*="agent" i][class*="sidebar" i],
+.mitra-chat-detected {
+  border-radius: 16px !important;
+  margin: 16px !important;
+  box-shadow:
+    0 20px 50px -12px rgba(15, 23, 42, 0.25),
+    0 8px 20px -8px rgba(15, 23, 42, 0.15) !important;
+  overflow: hidden !important;
+  max-height: calc(100vh - 32px) !important;
+  height: calc(100vh - 32px) !important;
+  /* Largura forcada do popup do chat. Tunavel via --chat-popup-width
+     em :root (definida no topo do arquivo). */
+  width: var(--chat-popup-width, 480px) !important;
+  max-width: var(--chat-popup-width, 480px) !important;
+  min-width: var(--chat-popup-width, 480px) !important;
+}
+iframe[src*="chat" i], iframe[id*="mitra-chat" i], iframe[class*="mitra-chat" i],
+iframe[src*="agent" i],
+.mitra-chat-detected iframe,
+iframe.mitra-chat-detected {
+  border-radius: 16px !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   Chat IA — Botao flutuante "Pergunte ao Mitra"
+   Pill 56px de altura fixed bottom-right, gradient com cor primary do
+   projeto, label que expande no hover, ring de pulso animado e X de
+   fechar que aparece so no hover (quando chat aberto).
+   ────────────────────────────────────────────────────────────────────── */
+.chat-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #fff;
+  background: var(--color-primary);
+  box-shadow:
+    0 12px 32px -8px color-mix(in srgb, var(--color-primary) 55%, transparent),
+    0 4px 12px -4px rgba(15, 23, 42, 0.18);
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+  isolation: isolate;
+  overflow: hidden;
+}
+.chat-trigger::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  z-index: -1;
+  animation: chat-ring 2.2s ease-out infinite;
+}
+.chat-trigger:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 16px 38px -8px color-mix(in srgb, var(--color-primary) 65%, transparent),
+    0 6px 16px -4px rgba(15, 23, 42, 0.22);
+}
+.chat-trigger:active {
+  transform: translateY(0);
+}
+.chat-trigger[aria-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+}
+.chat-trigger--playground {
+  right: 24px;
+  bottom: 96px;
+}
+@keyframes chat-ring {
+  0%   { transform: scale(1);    opacity: 0.45; }
+  70%  { transform: scale(1.18); opacity: 0;    }
+  100% { transform: scale(1.18); opacity: 0;    }
+}
+
+/* Playground: único controle de painel sobre a divisória redimensionável. */
+.pg-split-divider {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+.pg-split-line {
+  width: 1px;
+  height: 100%;
+  background-color: var(--color-border);
+  transition: background-color 150ms ease;
+}
+.pg-split-divider:hover .pg-split-line {
+  background-color: var(--color-primary);
+}
+.pg-split-toggle {
+  display: inline-flex;
+  width: 26px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.1);
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+.pg-split-toggle:hover,
+.pg-split-toggle:focus-visible {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-bg);
+  outline: none;
+}
+.pg-chat-messages {
+  padding-bottom: 88px;
+}
+
+/* ===== Handsontable — dropdown/autocomplete/menus ELEVADOS =====
+   Sem isto a lista aberta (ex: contas contabeis) fica sem fundo/borda/sombra
+   e se mistura visualmente com as celulas do grid atras dela. */
+.handsontableInputHolder { z-index: 1300 !important; }
+.handsontable.listbox,
+.ht-theme-main.handsontable.listbox {
+  margin-top: 4px !important;
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18), 0 3px 8px rgba(15, 23, 42, 0.08) !important;
+  overflow: hidden !important;
+}
+.handsontable.listbox .ht_master .wtHolder,
+.handsontable.listbox .wtHider,
+.handsontable.listbox table.htCore {
+  background: var(--color-surface) !important;
+}
+.handsontable.listbox td,
+.ht-theme-main.handsontable.listbox td {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border: none !important;
+  /* so padding horizontal — mexer no vertical infla as linhas alem da altura
+     que o Handsontable calcula para a caixa e cria scroll ate em listas de 2 itens */
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+}
+/* Caixa cresce junto com o conteudo — nunca scroll em lista curta */
+.handsontable.listbox { height: auto !important; }
+.handsontable.listbox td:hover { background: var(--color-hover) !important; }
+.handsontable.listbox td.current,
+.ht-theme-main.handsontable.listbox td.current {
+  background: var(--color-primary-bg) !important;
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+}
+/* Menu de contexto (Remover linha) — mesma elevacao */
+.htContextMenu.handsontable, .htDropdownMenu.handsontable {
+  border: 1px solid var(--color-border) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18) !important;
+  overflow: hidden !important;
+}
+.htContextMenu.handsontable td, .htDropdownMenu.handsontable td {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  font-size: 13px !important;
+}
+.htContextMenu.handsontable td.current, .htContextMenu.handsontable td:hover {
+  background: var(--color-primary-bg) !important;
+  color: var(--color-primary) !important;
+}
+
+/* ===== Grid de formulas do modelo (.ht-formulas) — minimalista ===== */
+.handsontable.ht-formulas th,
+.ht-theme-main.handsontable.ht-formulas th {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text-secondary) !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+.handsontable.ht-formulas thead th .colHeader {
+  font-size: 12px !important;
+  line-height: 40px;
+  padding: 0 6px;
+}
+/* Cabecalhos com icone (Esconder/Negrito) — centralizados e alinhados aos demais (mesma faixa de 40px) */
+.handsontable.ht-formulas thead th .colHeader:has(.ht-col-icon) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 !important;
+}
+.handsontable.ht-formulas th .ht-col-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+}
+.handsontable.ht-formulas td {
+  font-size: 13px !important;
+  vertical-align: middle !important;
+}
+/* Badge com o codigo da linha (coluna Nome) — clique copia [Lx] para formulas */
+.handsontable.ht-formulas td .ht-line-code {
+  float: right;
+  margin-left: 8px;
+  margin-top: 1px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 0 6px;
+  border-radius: 6px;
+  background-color: var(--color-hover);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  cursor: copy;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+.handsontable.ht-formulas td .ht-line-code:hover { opacity: 1; }
+/* Lixeira por linha (ultima coluna) — excluir sem depender do botao direito */
+.handsontable.ht-formulas td .ht-row-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted, #94a3b8);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+}
+.handsontable.ht-formulas td .ht-row-delete:hover {
+  opacity: 1;
+  color: #dc2626;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+/* Alca de arrasto (row header) — reordenar linhas com manualRowMove */
+.handsontable.ht-formulas tbody th {
+  cursor: grab;
+  background-color: var(--color-surface) !important;
+  border-right: 1px solid var(--color-border) !important;
+}
+.handsontable.ht-formulas tbody th:active { cursor: grabbing; }
+.handsontable.ht-formulas .ht-row-grip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-secondary);
+  opacity: 0.45;
+  transition: opacity 0.15s;
+}
+.handsontable.ht-formulas tbody th:hover .ht-row-grip { opacity: 1; }
+/* Colunas de escolha — <select> nativo dentro da celula (abre no clique, popup do SO) */
+.handsontable.ht-formulas td.ht-selectcol {
+  padding: 0 !important;
+  position: relative;
+}
+.handsontable.ht-formulas td.ht-selectcol:hover { background-color: var(--color-hover) !important; }
+/* O select preenche a celula, sem borda propria — herda o visual da grade.
+   Mantem o chevron (background-image do estilo global de select). */
+.handsontable.ht-formulas td.ht-selectcol .ht-cell-select {
+  width: 100%;
+  height: 100%;
+  min-height: 36px;
+  border: none !important;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: 13px;
+  line-height: normal;
+  padding: 0 24px 0 8px;
+  cursor: pointer;
+  box-shadow: none !important;
+  outline: none !important;
+  background-position: right 7px center;
+}
+.handsontable.ht-formulas td.ht-selectcol .ht-cell-select:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* Dropdown cells — celula inteira clicavel, chevron moderno, hover visivel */
+.handsontable.ht-formulas td.htAutocomplete { cursor: pointer !important; }
+.handsontable.ht-formulas td.htAutocomplete:hover { background-color: var(--color-hover) !important; }
+.handsontable.ht-formulas td .htAutocompleteArrow {
+  color: transparent !important;
+  position: relative;
+  width: 20px;
+  float: right;
+}
+.handsontable.ht-formulas td .htAutocompleteArrow::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  background-color: var(--color-text-secondary);
+  opacity: 0.7;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>") no-repeat center / contain;
+}
+/* Coluna de exclusao — lixeira suave que acende no hover */
+.handsontable.ht-formulas td.ht-del-cell {
+  text-align: center !important;
+  cursor: pointer !important;
+}
+.handsontable.ht-formulas td.ht-del-cell .ht-del-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  opacity: 0.55;
+  transition: all 0.12s ease;
+}
+.handsontable.ht-formulas td.ht-del-cell:hover .ht-del-btn {
+  opacity: 1;
+  color: #dc2626;
+  background-color: rgba(220, 38, 38, 0.08);
+}
+/* Placeholder didatico (celulas vazias com dica) */
+.handsontable.ht-formulas td.htPlaceholder,
+.ht-theme-main.handsontable.ht-formulas td.htPlaceholder {
+  color: var(--input-placeholder) !important;
+  font-style: italic;
+  font-weight: 400 !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   Playground — estudos com agente analista (chat + canvas)
+   ──────────────────────────────────────────────────────────────────── */
+
+/* Card da lista com hover lift */
+.pg-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.pg-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.12);
+  border-color: var(--color-primary-light) !important;
+}
+
+/* Variante neutra (visão gestor) — mesmo lift, sem borda roxa no hover */
+.pg-card-neutral:hover {
+  border-color: var(--color-border) !important;
+}
+
+/* Skeleton shimmer */
+.pg-skeleton {
+  border-radius: 12px;
+  background: linear-gradient(100deg, var(--bg-hover) 40%, var(--bg-muted) 50%, var(--bg-hover) 60%);
+  background-size: 200% 100%;
+  animation: pg-shimmer 1.4s ease infinite;
+}
+@keyframes pg-shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* Spinner (tool ativa / status vivo) */
+.pg-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary-glow);
+  border-top-color: var(--color-primary);
+  animation: pg-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes pg-spin { to { transform: rotate(360deg); } }
+
+/* Tools do raciocínio — UMA faixa por mensagem: os chips envolvem em vez de
+   empilhar (o mesmo tópico nunca reaparece em outra linha, só incrementa o
+   contador), então uma análise longa não vira uma coluna de chips. */
+.pg-tools-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  max-width: 100%;
+}
+.pg-tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3.5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  background-color: transparent;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+/* Em execução: sem cinza — tinta da marca e um brilho que atravessa o chip,
+   para a espera parecer movimento e não travamento. */
+.pg-tool-chip.is-active {
+  color: var(--color-primary);
+  border-color: var(--color-primary-glow);
+  background-image: linear-gradient(
+    100deg,
+    var(--color-primary-bg) 38%,
+    transparent 50%,
+    var(--color-primary-bg) 62%
+  );
+  background-size: 220% 100%;
+  animation: pg-tool-flow 1.8s ease-in-out infinite;
+}
+@keyframes pg-tool-flow {
+  to { background-position: -220% 0; }
+}
+.pg-tool-count {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2.5px 5px;
+  border-radius: 999px;
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+/* Sugestões de partida do chat vazio */
+.pg-sugestao {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background-color: transparent;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+.pg-sugestao:hover {
+  color: var(--color-text);
+  border-color: var(--color-primary-glow);
+  background-color: var(--color-primary-bg);
+}
+
+/* Aviso de falha no chat (inclui a instrução de qual credencial falhou) */
+.pg-erro-card {
+  align-self: stretch;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--semantic-danger, #dc2626) 22%, transparent);
+  background-color: color-mix(in srgb, var(--semantic-danger, #dc2626) 6%, transparent);
+}
+.pg-erro-acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.pg-erro-acao:hover { text-decoration: underline; }
+
+/* Composer — caixa clara e 15% mais alta que os 38px anteriores */
+.pg-composer-input {
+  min-height: 44px;
+}
+.pg-composer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+/* Markdown leve das falas do agente */
+.pg-md {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-text);
+  word-break: break-word;
+}
+.pg-md p { margin: 0 0 2px; }
+.pg-md ul { margin: 2px 0 4px; padding-left: 18px; list-style: disc; }
+.pg-md li { margin: 1px 0; }
+.pg-md code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  background-color: var(--bg-hover);
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  padding: 0.5px 5px;
+  color: var(--color-primary-hover);
+}
+.pg-md strong { font-weight: 650; color: var(--text-heading); }
+.pg-md .pg-md-h { font-weight: 700; margin: 6px 0 2px; color: var(--text-heading); }
+.pg-md .pg-md-gap { height: 6px; }
+
+/* Caret pulsante do streaming */
+.pg-caret {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  border-radius: 2px;
+  background-color: var(--color-primary);
+  animation: pg-blink 0.9s ease infinite;
+  margin-left: 2px;
+}
+@keyframes pg-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+/* Indicador "pensando" (3 pontinhos) */
+.pg-think-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+  animation: pg-bounce 1s ease infinite;
+}
+@keyframes pg-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Estado vazio desenhado em CSS (mini gráfico de barras vivo) */
+.pg-empty-art {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 80px;
+  padding: 0 4px;
+  border-bottom: 2px solid var(--color-border);
+}
+.pg-empty-bar {
+  width: 22px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, var(--color-primary-light), var(--color-primary));
+  opacity: 0.85;
+  animation: pg-grow 2.2s ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+@keyframes pg-grow {
+  from { transform: scaleY(0.55); opacity: 0.5; }
+  to { transform: scaleY(1); opacity: 0.9; }
+}
+
+/* ── Celulas editaveis em tabela ──────────────────────────────────────
+   O campo parece texto comum enquanto ninguem interage: sem caixa, sem
+   borda, alinhado com as demais celulas. O fundo aparece de leve no hover
+   (sinalizando que da para editar) e a borda so no foco, durante a edicao.
+   Uma borda permanente por celula transforma a tabela num formulario. */
+.celula-inline {
+  border-color: transparent;
+  background-color: transparent;
+}
+.celula-inline:hover:not(:disabled):not(:focus) {
+  background-color: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+.celula-inline:focus {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+/* Marca de campo: um pontilhado fino sob o PROPRIO VALOR (nao sob a celula
+   inteira), so nas celulas onde se digita ou se escolhe. Sem ele o valor fica
+   indistinguivel de texto fixo e ninguem descobre que da para editar; com uma
+   caixa por celula a tabela vira formulario. O pontilhado acompanha a largura
+   do texto, entao a coluna continua se lendo como coluna.
+   Durante a digitacao ele sai de cena: a borda de foco ja marca o campo. */
+.celula-inline-marca:not(:disabled):not(:focus) {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--color-text) 35%, transparent);
+  text-underline-offset: 4px;
+}
+.celula-inline-marca:hover:not(:disabled):not(:focus) {
+  text-decoration-color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+/* Seta do seletor: discreta, aparece quando o ponteiro passa pela linha. */
+.celula-inline-seta { opacity: 0; }
+tr:hover .celula-inline-seta,
+.celula-inline:focus ~ .celula-inline-seta { opacity: 0.5; }

@@ -1,0 +1,2 @@
+-- tipo: SQL | DRE config.
+SELECT * FROM DRE_CONFIG ORDER BY ORDEM

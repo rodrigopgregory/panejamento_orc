@@ -1,0 +1,8 @@
+-- tipo: SQL | Valores agregados de um pacote do gestor (leitura), escopado por token (params: token, pacoteId)
+SELECT cc.ID AS CONTA_ID, cc.CODIGO, cc.NOME AS CONTA_NOME, op.MES, SUM(op.VALOR) AS VALOR
+FROM PREENCHIMENTO_TOKEN t
+JOIN PACOTE_STATUS ps ON ps.CICLO_ID = t.CICLO_ID AND ps.GESTOR_ID = t.GESTOR_ID AND ps.DRIVER_ID = {{pacoteId}}
+JOIN ORCAMENTO_PACOTE op ON op.CICLO_ID = t.CICLO_ID AND op.DRIVER_ID = ps.DRIVER_ID
+JOIN CONTA_CONTABIL cc ON cc.ID = op.CONTA_ID
+WHERE t.TOKEN = '{{token}}' AND t.ATIVO = 'true'
+GROUP BY cc.ID, cc.CODIGO, cc.NOME, op.MES

@@ -1,0 +1,1 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (56, 'pessoalListarColaboradores', 'Lista colaboradores ativos de um CR (params: crId)', 'SQL', 'SELECT * FROM COLABORADOR WHERE CR_ID = {{crId}} AND ATIVO = ''true'' ORDER BY NOME', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

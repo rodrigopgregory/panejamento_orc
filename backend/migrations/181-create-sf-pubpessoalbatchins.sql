@@ -1,0 +1,13 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (164, 'pubPessoalBatchIns', 'Publico: INSERT em lote da folha via JSON, token-gated (params: token,cicloId,crId,rowsJson=[{c,m,s,b,e,t}])', 'SQL', 'INSERT INTO ORCAMENTO_PESSOAL (CICLO_ID, CR_ID, COLABORADOR_ID, MES, SALARIO, BENEFICIOS, ENCARGOS, TOTAL)
+ SELECT {{cicloId}}, {{crId}}, jt.COLAB_ID, jt.MES, jt.SALARIO, jt.BEN, jt.ENC, jt.TOTAL
+ FROM JSON_TABLE(''{{rowsJson}}'', ''$[*]'' COLUMNS (
+   COLAB_ID INT PATH ''$.c'' NULL ON EMPTY NULL ON ERROR,
+   MES INT PATH ''$.m'',
+   SALARIO DECIMAL(14,2) PATH ''$.s'',
+   BEN DECIMAL(14,2) PATH ''$.b'',
+   ENC DECIMAL(14,2) PATH ''$.e'',
+   TOTAL DECIMAL(14,2) PATH ''$.t''
+ )) jt
+ WHERE EXISTS (SELECT 1 FROM PREENCHIMENTO_TOKEN pt
+ JOIN GESTOR_CR gc ON gc.GESTOR_ID = pt.GESTOR_ID AND gc.CR_ID = {{crId}}
+ WHERE pt.TOKEN = ''{{token}}'' AND pt.ATIVO = ''true'' AND pt.CICLO_ID = {{cicloId}})', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

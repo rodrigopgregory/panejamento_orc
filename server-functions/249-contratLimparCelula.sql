@@ -1,0 +1,2 @@
+-- tipo: SQL | Grade de contratacoes: limpa a celula (ciclo, CR, cargo, mes) antes de regravar. Params numericos: cicloId, crId, cargoId, mes
+DELETE FROM CONTRATACAO_PROJETADA WHERE CICLO_ID = {{cicloId}} AND CR_ID = {{crId}} AND CARGO_ID = {{cargoId}} AND MES_ENTRADA = {{mes}}

@@ -1,0 +1,2 @@
+-- tipo: SQL | Playground: leitura publica de um estudo compartilhado por token — param token. SF publica.
+SELECT NOME, HTML, ATUALIZADO_EM FROM PLAYGROUND WHERE SHARE_TOKEN = '{{token}}' AND SHARE_TOKEN <> '' AND ATIVO = 'true'

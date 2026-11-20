@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafb" media="(prefers-color-scheme: light)" />
+    <script>
+      // Tema aplicado ANTES do primeiro pixel — sem isso a tela pisca clara
+      // antes de escurecer. Mesma cascata do src/lib/tema.ts, versao minima:
+      // URL -> casca da plataforma (mesma origem) -> localStorage -> SO.
+      (function () {
+        var CHAVES = /(theme|tema|appearance|color[-_]?scheme|modo?)/i;
+        function norm(v) {
+          if (typeof v !== 'string') return null;
+          v = v.trim().replace(/^"|"$/g, '').toLowerCase();
+          return v === 'dark' || v === 'light' ? v : null;
+        }
+        function daUrl() {
+          var fontes = [location.search.slice(1), location.hash.slice(1)];
+          for (var i = 0; i < fontes.length; i++) {
+            if (!fontes[i]) continue;
+            var p = new URLSearchParams(fontes[i]);
+            var it = p.entries(), e;
+            while (!(e = it.next()).done) {
+              if (CHAVES.test(e.value[0])) { var t = norm(e.value[1]); if (t) return t; }
+            }
+          }
+          return null;
+        }
+        function doDoc(doc) {
+          var els = [doc.documentElement, doc.body];
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (!el) continue;
+            var nomes = el.getAttributeNames ? el.getAttributeNames() : [];
+            for (var j = 0; j < nomes.length; j++) {
+              if (nomes[j] !== 'class' && CHAVES.test(nomes[j])) {
+                var t = norm(el.getAttribute(nomes[j])); if (t) return t;
+              }
+            }
+            var cls = typeof el.className === 'string' ? el.className : '';
+            if (/(^|[\s-])(dark|theme-dark)($|[\s-])/.test(cls)) return 'dark';
+            if (/(^|[\s-])(light|theme-light)($|[\s-])/.test(cls)) return 'light';
+          }
+          return norm(doc.defaultView.getComputedStyle(doc.documentElement).colorScheme);
+        }
+        // Fundo escuro = tema escuro: olha o pixel, nao o nome da chave. So'
+        // entra depois dos sinais explicitos — um quadro de preview claro em
+        // volta do app responderia "light" com a plataforma escura.
+        function porLuminancia(doc) {
+          var alvos = [doc.body, doc.documentElement];
+          for (var k = 0; k < alvos.length; k++) {
+            if (!alvos[k]) continue;
+            var m = (doc.defaultView.getComputedStyle(alvos[k]).backgroundColor || '').match(/rgba?\(([^)]+)\)/i);
+            if (!m) continue;
+            var n = m[1].split(',').map(parseFloat);
+            if (n.length > 3 && !n[3]) continue;
+            if (isNaN(n[0]) || isNaN(n[1]) || isNaN(n[2])) continue;
+            return (0.2126 * n[0] + 0.7152 * n[1] + 0.0722 * n[2]) / 255 < 0.5 ? 'dark' : 'light';
+          }
+          return null;
+        }
+        // Documentos das cascas acima acessiveis (cross-origin lanca e some).
+        function cascas() {
+          var fora = [], w = window;
+          for (var i = 0; i < 5; i++) {
+            var pai = w.parent;
+            if (!pai || pai === w) break;
+            try { if (pai.document.documentElement) fora.push(pai.document); }
+            catch (e) { /* origem diferente: casca invisivel */ }
+            w = pai;
+          }
+          return fora;
+        }
+        function daCasca(docs) {
+          var i, t;
+          for (i = 0; i < docs.length; i++) { if ((t = doDoc(docs[i]))) return t; }
+          for (i = 0; i < docs.length; i++) {
+            try {
+              var st = docs[i].defaultView.localStorage;
+              for (var j = 0; j < st.length; j++) {
+                var c = st.key(j);
+                if (c && CHAVES.test(c) && (t = norm(st.getItem(c)))) return t;
+              }
+            } catch (e) {}
+          }
+          return null;
+        }
+        function doStore() {
+          try {
+            for (var i = 0; i < localStorage.length; i++) {
+              var c = localStorage.key(i), t;
+              if (c && CHAVES.test(c) && (t = norm(localStorage.getItem(c)))) return t;
+            }
+          } catch (e) {}
+          return null;
+        }
+        function luminanciaDasCascas(docs) {
+          for (var i = docs.length - 1; i >= 0; i--) {  // casca mais externa primeiro
+            var t = porLuminancia(docs[i]);
+            if (t) return t;
+          }
+          return null;
+        }
+        try {
+          var docs = cascas();
+          var tema = daUrl() || daCasca(docs) || doStore() || luminanciaDasCascas(docs) ||
+            (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = tema;
+          document.documentElement.classList.toggle('dark', tema === 'dark');
+          document.documentElement.style.colorScheme = tema;
+        } catch (e) {}
+      })();
+    </script>
+    <title>Mitra FP&A</title>
+    <meta property="og:title" content="Mitra FP&A" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Mitra FP&A" />
+    <meta name="twitter:image" content="/logo.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

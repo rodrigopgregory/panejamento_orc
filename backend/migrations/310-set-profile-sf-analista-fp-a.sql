@@ -1,0 +1,22 @@
+DELETE FROM INT_PROFILESERVERFUNCTION WHERE PROFILEID = 2;
+INSERT INTO INT_PROFILESERVERFUNCTION (PROFILEID, SERVERFUNCTIONID) VALUES
+  (2, 1),
+  (2, 2),
+  (2, 3),
+  (2, 4),
+  (2, 5),
+  (2, 6),
+  (2, 7),
+  (2, 8),
+  (2, 9),
+  (2, 10),
+  (2, 11),
+  (2, 14),
+  (2, 15),
+  (2, 16),
+  (2, 17),
+  (2, 40),
+  (2, 176),
+  (2, 177),
+  (2, 187),
+  (2, 189);

@@ -1,0 +1,6 @@
+INSERT INTO INT_SERVERFUNCTION (ID, NAME, DESCRIPTION, TYPE, CODE, JDBC_ID, PUBLIC_EXECUTION, CRON_EXPRESSION, CRON_INPUT_JSON, CREATED_BY) VALUES (68, 'publicCarregarValores', 'Valores ja preenchidos de um CR — autorizado pelo token (params: token, crId)', 'SQL', 'SELECT o.CONTA_ID, o.MES, SUM(o.VALOR) AS VALOR
+FROM PREENCHIMENTO_TOKEN t
+JOIN GESTOR_CR gc ON gc.GESTOR_ID = t.GESTOR_ID AND gc.CR_ID = {{crId}}
+JOIN ORCAMENTO o ON o.CICLO_ID = t.CICLO_ID AND o.CR_ID = gc.CR_ID
+WHERE t.TOKEN = ''{{token}}'' AND t.ATIVO = ''true''
+GROUP BY o.CONTA_ID, o.MES', NULL, FALSE, NULL, NULL, 'sarah@mitralab.io');

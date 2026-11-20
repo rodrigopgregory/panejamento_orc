@@ -1,0 +1,10 @@
+import 'dotenv/config';
+import { configureSdkMitra, runQueryMitra } from 'mitra-sdk';
+configureSdkMitra({ baseURL: process.env.MITRA_BASE_URL, token: process.env.MITRA_TOKEN, integrationURL: process.env.MITRA_BASE_URL_INTEGRATIONS });
+const projectId = parseInt(process.env.MITRA_PROJECT_ID);
+const s = await runQueryMitra({ projectId, sql: `SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'ORCAMENTO_PACOTE' ORDER BY ORDINAL_POSITION` });
+console.log('ORCAMENTO_PACOTE:'); console.table(s.result?.rows || []);
+const sample = await runQueryMitra({ projectId, sql: `SELECT * FROM ORCAMENTO_PACOTE WHERE DRIVER_ID = 5 ORDER BY CR_ID, CONTA_ID, MES LIMIT 6` });
+console.log('Sample (pacote 5):'); console.table(sample.result?.rows || []);
+const o = await runQueryMitra({ projectId, sql: `SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'ORCAMENTO' ORDER BY ORDINAL_POSITION` });
+console.log('ORCAMENTO:'); console.table(o.result?.rows || []);

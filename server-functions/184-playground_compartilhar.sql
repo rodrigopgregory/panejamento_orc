@@ -1,0 +1,2 @@
+-- tipo: SQL | Playground: define token de compartilhamento — params id, token, agora.
+UPDATE PLAYGROUND SET SHARE_TOKEN = '{{token}}', ATUALIZADO_EM = '{{agora}}' WHERE ID = {{id}} AND USUARIO_ID = :VAR_USER

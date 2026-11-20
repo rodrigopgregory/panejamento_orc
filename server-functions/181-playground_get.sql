@@ -1,0 +1,2 @@
+-- tipo: SQL | Playground: carrega um estudo completo — param id.
+SELECT ID, USUARIO, NOME, HTML, TASK_ID, SHARE_TOKEN, CONVERSA, CRIADO_EM, ATUALIZADO_EM FROM PLAYGROUND WHERE ID = {{id}} AND USUARIO_ID = :VAR_USER AND ATIVO = 'true'

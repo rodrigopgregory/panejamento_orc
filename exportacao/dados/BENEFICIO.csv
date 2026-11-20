@@ -1,0 +1,25 @@
+ID,NOME,TIPO,VALOR,PERCENTUAL,APLICA_PJ,APLICA_CLT,CICLO_ID
+13,Vale Refeição,FIXO,880,0,false,true,120
+14,Vale Transporte,PERCENTUAL,0,6,false,true,120
+15,Plano de Saúde,FIXO,650,0,true,true,120
+16,Plano Odontológico,FIXO,85,0,false,true,120
+17,Seguro de Vida,FIXO,45,0,false,true,120
+18,Vale Alimentação,FIXO,450,0,false,true,120
+19,Vale Refeição,FIXO,880,0,false,true,121
+20,Vale Transporte,PERCENTUAL,0,6,false,true,121
+21,Plano de Saúde,FIXO,650,0,true,true,121
+22,Plano Odontológico,FIXO,85,0,false,true,121
+23,Seguro de Vida,FIXO,45,0,false,true,121
+24,Vale Alimentação,FIXO,450,0,false,true,121
+85,Vale Refeição,FIXO,880,0,false,true,132
+86,Vale Transporte,PERCENTUAL,0,6,false,true,132
+87,Plano de Saúde,FIXO,650,0,true,true,132
+88,Plano Odontológico,FIXO,85,0,false,true,132
+89,Seguro de Vida,FIXO,45,0,false,true,132
+90,Vale Alimentação,FIXO,450,0,false,true,132
+91,Vale Refeição,FIXO,880,0,false,true,133
+92,Vale Transporte,PERCENTUAL,0,6,false,true,133
+93,Plano de Saúde,FIXO,650,0,true,true,133
+94,Plano Odontológico,FIXO,85,0,false,true,133
+95,Seguro de Vida,FIXO,45,0,false,true,133
+96,Vale Alimentação,FIXO,450,0,false,true,133
