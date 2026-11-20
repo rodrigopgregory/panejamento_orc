@@ -1,4 +1,4 @@
-Exportacao leve do Planejamento Orcamentario, gerada em 2026-11-19T23:23:54.
+Exportacao leve do Planejamento Orcamentario, gerada em 2026-11-19T23:26:05.
 
 codigo/: codigo do app (frontend, backend, Server Functions).
 estrutura-banco/schema.sql: CREATE TABLE de todas as tabelas.
